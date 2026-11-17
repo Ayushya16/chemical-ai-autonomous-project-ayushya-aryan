@@ -672,6 +672,132 @@
       color: var(--accent-blue);
       text-decoration: none;
     }
+  
+    
+    /* Textbook-Grade Engineering Mathematics */
+    .formula-card {
+      background: #060913;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-left: 3px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 18px 24px;
+      margin: 14px 0 16px 0;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+      overflow-x: auto;
+    }
+    .math-eq {
+      font-family: 'Cambria Math', 'KaTeX_Main', 'Times New Roman', Georgia, serif;
+      font-size: 1.18rem;
+      color: #f8fafc;
+      line-height: 2.2;
+      letter-spacing: 0.01em;
+    }
+    .math-eq em {
+      font-style: italic;
+      font-family: inherit;
+    }
+    .math-eq sub {
+      font-size: 0.70em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+      bottom: -0.22em;
+      font-family: inherit;
+    }
+    .math-eq sup {
+      font-size: 0.70em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+      top: -0.42em;
+      font-family: inherit;
+    }
+    .math-arrow {
+      color: var(--accent-cyan);
+      font-size: 1.25rem;
+      margin: 0 10px;
+    }
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      vertical-align: middle;
+      text-align: center;
+      padding: 0 4px;
+      font-size: 0.95em;
+      line-height: 1.0;
+    }
+    .frac .num {
+      border-bottom: 1.2px solid #cbd5e1;
+      padding-bottom: 3px;
+      display: block;
+    }
+    .frac .den {
+      padding-top: 3px;
+      display: block;
+    }
+    .bracket {
+      font-size: 1.35em;
+      line-height: 1;
+      vertical-align: middle;
+      color: #94a3b8;
+    }
+    .sum-block {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .sum-sign {
+      font-size: 1.6em;
+      line-height: 1;
+      color: var(--accent-amber);
+      font-weight: 300;
+      margin-right: 2px;
+    }
+    .sum-limits {
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 2.2em;
+      font-size: 0.65em;
+      line-height: 1;
+      text-align: center;
+    }
+    .math-sub-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.80rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin: 14px 0 4px 0;
+      border-top: 1px solid var(--border-color);
+      padding-top: 10px;
+    }
+    .param-pill-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 8px 0;
+    }
+    .param-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 5px 12px;
+      border-radius: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--accent-cyan);
+    }
+    .param-pill sub {
+      font-size: 0.75em;
+      bottom: -0.2em;
+    }
+    .param-pill sup {
+      font-size: 0.75em;
+      top: -0.35em;
+    }
+
   </style>
 </head>
 <body>
@@ -1176,42 +1302,61 @@
 
         <div class="doc-card doc-card-accent">
           <div class="doc-card-title">1. Phase Equilibrium &amp; Modified Raoult's Law</div>
-          <p>For a non-ideal binary mixture of Ethanol (1) and Water (2), vapor-liquid equilibrium requires chemical potential equality for every species:</p>
-          <div class="code-box">
-y_i * P = x_i * &gamma;_i(T, x) * P_i^sat(T) * &Phi;_i^corr
-==> K_i(T, P, x) = y_i / x_i = [&gamma;_i(T, x) * P_i^sat(T)] / P
+          <p>For a non-ideal binary mixture of Ethanol (1) and Water (2), vapor-liquid equilibrium requires chemical potential equality for every species (<em>f</em><sub><em>i</em></sub><sup>V</sup> = <em>f</em><sub><em>i</em></sub><sup>L</sup>):</p>
+          <div class="formula-card">
+            <div class="math-eq">
+              <em>y</em><sub><em>i</em></sub> &middot; <em>P</em> = <em>x</em><sub><em>i</em></sub> &middot; &gamma;<sub><em>i</em></sub>(<em>T</em>, <em>x</em>) &middot; <em>P</em><sub><em>i</em></sub><sup>sat</sup>(<em>T</em>) &middot; &Phi;<sub><em>i</em></sub><sup>corr</sup>
+              <span class="math-arrow">&rArr;</span>
+              <em>K</em><sub><em>i</em></sub>(<em>T</em>, <em>P</em>, <em>x</em>) &equiv; <span class="frac"><span class="num"><em>y</em><sub><em>i</em></sub></span><span class="den"><em>x</em><sub><em>i</em></sub></span></span> = <span class="frac"><span class="num">&gamma;<sub><em>i</em></sub>(<em>T</em>, <em>x</em>) &middot; <em>P</em><sub><em>i</em></sub><sup>sat</sup>(<em>T</em>)</span><span class="den"><em>P</em></span></span>
+            </div>
           </div>
-          <p>where P_i^sat(T) is calculated from the Antoine equation: log10(P_i^sat [bar]) = A_i - B_i / (T [K] + C_i).</p>
+          <p>where <em>P</em><sub><em>i</em></sub><sup>sat</sup>(<em>T</em>) is calculated from the Antoine vapor pressure relation:</p>
+          <div class="formula-card" style="padding: 12px 20px;">
+            <div class="math-eq">
+              log<sub>10</sub>(<em>P</em><sub><em>i</em></sub><sup>sat</sup> [bar]) = <em>A</em><sub><em>i</em></sub> &minus; <span class="frac"><span class="num"><em>B</em><sub><em>i</em></sub></span><span class="den"><em>T</em> [K] + <em>C</em><sub><em>i</em></sub></span></span>
+            </div>
+          </div>
         </div>
 
         <div class="doc-card doc-card-teal">
           <div class="doc-card-title">2. Wilson Liquid Activity Coefficient Model</div>
           <p>The Wilson equation accurately represents polar azeotropic mixtures without liquid-liquid phase separation:</p>
-          <div class="code-box">
-ln &gamma;_1 = -ln(x_1 + x_2 * &Lambda;_12) + x_2 * [ &Lambda;_12 / (x_1 + x_2 * &Lambda;_12) - &Lambda;_21 / (x_2 + x_1 * &Lambda;_21) ]
-ln &gamma;_2 = -ln(x_2 + x_1 * &Lambda;_21) - x_1 * [ &Lambda;_12 / (x_1 + x_2 * &Lambda;_12) - &Lambda;_21 / (x_2 + x_1 * &Lambda;_21) ]
-
-where &Lambda;_ij = (V_j^L / V_i^L) * exp[ -a_ij / (R * T) ]
-Energy parameters: a_12 = 437.98 cal/mol, a_21 = 1256.41 cal/mol
+          <div class="formula-card">
+            <div class="math-eq">
+              ln &gamma;<sub>1</sub> = &minus;ln(<em>x</em><sub>1</sub> + &Lambda;<sub>12</sub><em>x</em><sub>2</sub>) + <em>x</em><sub>2</sub> <span class="bracket">[</span> <span class="frac"><span class="num">&Lambda;<sub>12</sub></span><span class="den"><em>x</em><sub>1</sub> + &Lambda;<sub>12</sub><em>x</em><sub>2</sub></span></span> &minus; <span class="frac"><span class="num">&Lambda;<sub>21</sub></span><span class="den">&Lambda;<sub>21</sub><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub></span></span> <span class="bracket">]</span>
+            </div>
+            <div class="math-eq" style="margin-top: 8px;">
+              ln &gamma;<sub>2</sub> = &minus;ln(&Lambda;<sub>21</sub><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub>) &minus; <em>x</em><sub>1</sub> <span class="bracket">[</span> <span class="frac"><span class="num">&Lambda;<sub>12</sub></span><span class="den"><em>x</em><sub>1</sub> + &Lambda;<sub>12</sub><em>x</em><sub>2</sub></span></span> &minus; <span class="frac"><span class="num">&Lambda;<sub>21</sub></span><span class="den">&Lambda;<sub>21</sub><em>x</em><sub>1</sub> + <em>x</em><sub>2</sub></span></span> <span class="bracket">]</span>
+            </div>
+          </div>
+          <p>where &Lambda;<sub><em>ij</em></sub> is defined by molar liquid volumes and characteristic binary interaction energies:</p>
+          <div class="formula-card" style="padding: 12px 20px;">
+            <div class="math-eq">
+              &Lambda;<sub><em>ij</em></sub> = <span class="frac"><span class="num"><em>V</em><sub><em>j</em></sub><sup>L</sup></span><span class="den"><em>V</em><sub><em>i</em></sub><sup>L</sup></span></span> &middot; exp <span class="bracket">[</span> &minus; <span class="frac"><span class="num"><em>a</em><sub><em>ij</em></sub></span><span class="den"><em>R</em> &middot; <em>T</em></span></span> <span class="bracket">]</span>
+            </div>
+          </div>
+          <div class="param-pill-box">
+            <span class="param-pill"><em>a</em><sub>12</sub> = 437.98 cal/mol</span>
+            <span class="param-pill"><em>a</em><sub>21</sub> = 1256.41 cal/mol</span>
+            <span class="param-pill"><em>V</em><sub>1</sub><sup>L</sup> = 58.68 cm<sup>3</sup>/mol</span>
+            <span class="param-pill"><em>V</em><sub>2</sub><sup>L</sup> = 18.07 cm<sup>3</sup>/mol</span>
           </div>
         </div>
 
         <div class="doc-card doc-card-amber">
           <div class="doc-card-title">3. The Rachford-Rice Objective Function</div>
-          <p>Combining overall and component material balances yields the monotonic Rachford-Rice objective function in terms of vapor fraction &beta; = V/F:</p>
-          <div class="code-box">
-r(&beta;) = &sum; [ z_i * (K_i - 1) ] / [ 1 + &beta; * (K_i - 1) ] = 0
-
-First Derivative:
-r'(&beta;) = -&sum; [ z_i * (K_i - 1)^2 ] / [ 1 + &beta; * (K_i - 1) ]^2 &lt; 0  (Strictly Monotonic)
+          <p>Combining overall and component material balances yields the monotonic Rachford-Rice objective function in terms of vapor fraction &beta; = <em>V</em>/<em>F</em>:</p>
+          <div class="formula-card">
+            <div class="math-eq">
+              <em>r</em>(&beta;) = <span class="sum-block"><span class="sum-sign">&sum;</span><span class="sum-limits"><span><em>C</em></span><span><em>i</em>=1</span></span></span> <span class="frac"><span class="num"><em>z</em><sub><em>i</em></sub> &middot; (<em>K</em><sub><em>i</em></sub> &minus; 1)</span><span class="den">1 + &beta; &middot; (<em>K</em><sub><em>i</em></sub> &minus; 1)</span></span> = 0
+            </div>
+            <div class="math-sub-heading">First Analytical Derivative (Strict Monotonicity &amp; Uniqueness):</div>
+            <div class="math-eq">
+              <em>r</em>'(&beta;) = &minus; <span class="sum-block"><span class="sum-sign">&sum;</span><span class="sum-limits"><span><em>C</em></span><span><em>i</em>=1</span></span></span> <span class="frac"><span class="num"><em>z</em><sub><em>i</em></sub> &middot; (<em>K</em><sub><em>i</em></sub> &minus; 1)<sup>2</sup></span><span class="den">[1 + &beta; &middot; (<em>K</em><sub><em>i</em></sub> &minus; 1)]<sup>2</sup></span></span> &lt; 0
+            </div>
           </div>
-          <p>Because r'(&beta;) &lt; 0 everywhere in the valid interval, Newton-Raphson iteration exhibits quadratic convergence without oscillation.</p>
+          <p>Because <em>r</em>'(&beta;) &lt; 0 everywhere on [0, 1], the Newton-Raphson iteration &beta;<sub><em>n</em>+1</sub> = &beta;<sub><em>n</em></sub> &minus; <em>r</em>(&beta;<sub><em>n</em></sub>) / <em>r</em>'(&beta;<sub><em>n</em></sub>) exhibits quadratic convergence without numerical oscillation.</p>
         </div>
-      </div>
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- TAB 4: FULL-SCALE LIMITATIONS & TECHNICAL LAGS                    -->
     <!-- ================================================================= -->
     <div id="tab-limitations" class="tab-content">
       <div class="doc-page-container">
