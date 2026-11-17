@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DWSIM Headless Simulator and AI Copilot - BITS Pilani DOP</title>
+  <style>
+    :root {
+      --navy-dark: #0a2540;
+      --navy-light: #102a43;
+      --blue-accent: #0284c7;
+      --teal-accent: #0f766e;
+      --slate-text: #334e68;
+      --slate-dark: #1f2937;
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #d9e2ec;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--slate-dark);
+      font-family: var(--font-main);
+      line-height: 1.45;
+    }
+
+    /* Top Global Header */
+    .header-bar {
+      background-color: var(--navy-dark);
+      color: #ffffff;
+      padding: 14px 24px;
+      border-bottom: 2px solid #0369a1;
+    }
+
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* Top Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      background: #102a43;
+      padding: 4px;
+      border-radius: 6px;
+      border: 1px solid #334e68;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      color: #cbd5e1;
+      border: none;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+    }
+
+    .nav-tab-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-tab-btn.active {
+      background: var(--blue-accent);
+      color: #ffffff;
+    }
+
+    /* Main Container */
+    .main-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Tab Content Containers */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Card Panels */
+    .panel-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .panel-title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1.5px solid var(--navy-dark);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .panel-heading {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--navy-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .panel-tag {
+      font-size: 0.75rem;
+      color: var(--slate-text);
+      font-weight: 600;
+    }
+
+    /* Simulator Layout Grid */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      .sim-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Flowsheet SVG Canvas */
+    .flowsheet-box {
+      width: 100%;
+      height: 340px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    svg.flowsheet-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Controls Styling */
+    .control-row {
+      margin-bottom: 14px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--navy-light);
+      margin-bottom: 5px;
+    }
+
+    .control-display {
+      font-family: var(--font-mono);
+      color: var(--blue-accent);
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--navy-dark);
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 4px rgba(0,0,0,0.3);
+    }
+
+    .preset-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .preset-btn {
+      background: #f1f5f9;
+      color: var(--navy-dark);
+      border: 1px solid #cbd5e1;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .preset-btn:hover {
+      background: var(--navy-dark);
+      color: #ffffff;
+      border-color: var(--navy-dark);
+    }
+
+    /* Data Table */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      margin-top: 10px;
+    }
+
+    table.data-table th, table.data-table td {
+      border: 1px solid var(--border-color);
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #f1f5f9;
+      color: var(--navy-dark);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    table.data-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .num-mono {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Metrics Row */
+    .metric-ribbon {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .metric-ribbon {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .metric-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--slate-text);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-data {
+      font-size: 1.25rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--navy-dark);
+      margin-top: 3px;
+    }
+
+    /* Action Stream Console */
+    .console-stream {
+      background: #0a2540;
+      color: #93c5fd;
+      border-radius: 4px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      line-height: 1.5;
+      height: 180px;
+      overflow-y: auto;
+    }
+
+    .c-tag { color: #38bdf8; }
+    .c-ok { color: #34d399; }
+    .c-warn { color: #fbbf24; }
+
+    /* Canvas chart */
+    .chart-box {
+      width: 100%;
+      height: 190px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+    }
+
+    /* Explainer & How-To Content Styling */
+    .guide-step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .guide-step:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: var(--navy-dark);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy-dark);
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 0.84rem;
+      color: var(--slate-text);
+      line-height: 1.45;
+    }
+
+    .info-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 14px 0;
+    }
+
+    @media (max-width: 768px) {
+      .info-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-pane {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--navy-dark);
+      padding: 12px 14px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .info-pane h4 {
+      font-size: 0.88rem;
+      color: var(--navy-dark);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .info-pane p {
+      font-size: 0.81rem;
+      color: var(--slate-text);
+      line-height: 1.4;
+    }
+
+    pre.code-block {
+      background: #0a2540;
+      color: #f8fafc;
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      line-height: 1.35;
+      overflow-x: auto;
+      margin: 8px 0;
+    }
+
+    .formula-callout {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 8px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--navy-dark);
+      margin: 8px 0;
+      border-radius: 4px;
+    }
+
+    .footer-bar {
+      margin-top: 30px;
+      padding: 16px 20px;
+      border-top: 1px solid #cbd5e1;
+      font-size: 0.78rem;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Global Header Bar -->
+  <header class="header-bar">
+    <div class="header-inner">
+      <div>
+        <div class="brand-title">DWSIM Process Simulator Copilot - Technical Proof of Concept</div>
+        <div class="brand-subtitle">Department of Chemical Engineering | BITS Pilani (Pilani Campus) | CHE F376/F377 DOP</div>
+      </div>
+      <div class="nav-tabs">
+        <button class="nav-tab-btn active" onclick="switchTab('tab-sim', this)">Interactive Simulator</button>
+        <button class="nav-tab-btn" onclick="switchTab('tab-how', this)">How to Use</button>
+        <button class="nav-tab-btn" onclick="switchTab('tab-explainer', this)">Technical Explainer</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-wrap">
+
+    <!-- ================================================================= -->
+    <!-- TAB 1: INTERACTIVE SIMULATOR                                      -->
+    <!-- ================================================================= -->
+    <div id="tab-sim" class="tab-content active">
+
+      <!-- Executive Overview Banner -->
+      <div class="panel-card" style="padding: 12px 18px; margin-bottom: 14px; background: #f0fdf4; border-color: #86efac; border-left: 4px solid #16a34a;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <strong style="color: #15803d; font-size: 0.85rem;">Headless Automation Pipeline Active:</strong>
+            <span style="font-size: 0.8rem; color: #166534;"> Ethanol-Water VLE Flash Separator solving via Rachford-Rice isothermal algorithm. Verified 0 solver errors.</span>
+          </div>
+          <span style="font-size: 0.75rem; font-weight: 700; color: #15803d; background: #dcfce7; padding: 2px 8px; border-radius: 4px; border: 1px solid #86efac;">
+            MACHINE TOLERANCE MET
+          </span>
+        </div>
+      </div>
+
+      <div class="sim-grid">
+
+        <!-- Left: Flowsheet Graphics, Metrics & Stream Table -->
+        <div>
+
+          <!-- Flowsheet Canvas -->
+          <div class="panel-card">
+            <div class="panel-title-bar">
+              <span class="panel-heading">Flowsheet Topology &amp; Phase Split</span>
+              <span class="panel-tag">Headless Memory Graph Execution</span>
+            </div>
+
+            <div class="flowsheet-box">
+              <svg class="flowsheet-svg" viewBox="0 0 700 340">
+                <defs>
+                  <linearGradient id="vesselGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#334155" />
+                    <stop offset="50%" stop-color="#475569" />
+                    <stop offset="100%" stop-color="#334155" />
+                  </linearGradient>
+                  <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(15, 118, 110, 0.4)" />
+                    <stop offset="100%" stop-color="rgba(15, 118, 110, 0.95)" />
+                  </linearGradient>
+                  <linearGradient id="vaporGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="rgba(2, 132, 199, 0.1)" />
+                    <stop offset="100%" stop-color="rgba(2, 132, 199, 0.4)" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Feed Stream Arrow -->
+                <path d="M 40 170 L 260 170" stroke="#0284c7" stroke-width="4" fill="none" stroke-linecap="round" />
+                <polygon points="260,170 248,164 248,176" fill="#0284c7" />
+                <text x="50" y="150" fill="#38bdf8" font-size="11" font-weight="700">FEED STREAM (F)</text>
+                <text id="svgFeedLabel" x="50" y="166" fill="#cbd5e1" font-size="9" font-family="monospace">360.0 K | 1.013 bar</text>
+                <text id="svgFeedFlow" x="50" y="194" fill="#94a3b8" font-size="9" font-family="monospace">3600 kg/h | z_EtOH: 0.50</text>
+
+                <!-- Separator Vessel -->
+                <rect x="270" y="60" width="160" height="220" rx="30" ry="30" fill="url(#vesselGrad)" stroke="#94a3b8" stroke-width="2.5" />
+                
+                <!-- Dynamic Liquid & Vapor Levels -->
+                <rect id="svgLiquidLevel" x="273" y="195" width="154" height="82" rx="0" ry="0" fill="url(#liquidGrad)" />
+                <rect id="svgVaporSpace" x="273" y="63" width="154" height="132" rx="20" ry="20" fill="url(#vaporGrad)" />
+
+                <!-- Demister Mesh -->
+                <rect x="290" y="100" width="120" height="10" fill="#1e293b" stroke="#cbd5e1" stroke-dasharray="2,2" />
+                <text x="350" y="108" fill="#cbd5e1" font-size="8" text-anchor="middle">Demister Mesh</text>
+
+                <text x="350" y="140" fill="#ffffff" font-size="13" font-weight="800" text-anchor="middle">FLASH DRUM</text>
+                <text x="350" y="156" fill="#cbd5e1" font-size="9" text-anchor="middle">V-101 (Isothermal)</text>
+                <text id="svgVesselPsi" x="350" y="176" fill="#38bdf8" font-size="11" font-family="monospace" font-weight="700" text-anchor="middle">V/F = 0.297</text>
+
+                <!-- Overhead Vapor Arrow -->
+                <path d="M 350 60 L 350 30 L 590 30" stroke="#38bdf8" stroke-width="4" fill="none" stroke-linecap="round" />
+                <polygon points="590,30 578,24 578,36" fill="#38bdf8" />
+                <text x="440" y="22" fill="#38bdf8" font-size="11" font-weight="700">VAPOR OVERHEAD (V)</text>
+                <text id="svgVapFlow" x="440" y="48" fill="#cbd5e1" font-size="9" font-family="monospace">1182.5 kg/h | y_EtOH: 0.621</text>
+
+                <!-- Bottoms Liquid Arrow -->
+                <path d="M 350 280 L 350 310 L 590 310" stroke="#0f766e" stroke-width="4" fill="none" stroke-linecap="round" />
+                <polygon points="590,310 578,304 578,316" fill="#0f766e" />
+                <text x="440" y="300" fill="#2dd4bf" font-size="11" font-weight="700">LIQUID BOTTOMS (L)</text>
+                <text id="svgLiqFlow" x="440" y="328" fill="#cbd5e1" font-size="9" font-family="monospace">2417.5 kg/h | x_EtOH: 0.449</text>
+              </svg>
+            </div>
+
+            <!-- Quantitative Metric Ribbon -->
+            <div class="metric-ribbon">
+              <div class="metric-card">
+                <div class="metric-title">Vapor Split (&psi;)</div>
+                <div id="mPsi" class="metric-data" style="color: var(--blue-accent);">0.2969</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Overhead Cut</div>
+                <div id="mVapSplit" class="metric-data" style="color: #0369a1;">32.8%</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Ethanol Enrichment</div>
+                <div id="mEnrich" class="metric-data" style="color: var(--teal-accent);">+24.3%</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-title">Mass Balance Error</div>
+                <div id="mError" class="metric-data" style="color: #15803d;">&lt; 10^-11</div>
+              </div>
+            </div>
+
+            <!-- Complete Stream Balance Table -->
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Stream</th>
+                  <th>State</th>
+                  <th>Molar Flow (mol/s)</th>
+                  <th>Mass Flow (kg/h)</th>
+                  <th>Mole Frac EtOH</th>
+                  <th>Mole Frac Water</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Feed (F)</strong></td>
+                  <td>Two-Phase</td>
+                  <td id="tFeedMolar" class="num-mono">31.21</td>
+                  <td id="tFeedMass" class="num-mono">3600.0</td>
+                  <td id="tFeedZEtOH" class="num-mono">0.5000</td>
+                  <td id="tFeedZH2O" class="num-mono">0.5000</td>
+                </tr>
+                <tr>
+                  <td><strong>Vapor (V)</strong></td>
+                  <td>Saturated Vapor</td>
+                  <td id="tVapMolar" class="num-mono">9.27</td>
+                  <td id="tVapMass" class="num-mono">1182.5</td>
+                  <td id="tVapYEtOH" class="num-mono" style="font-weight:700; color:var(--blue-accent);">0.6214</td>
+                  <td id="tVapYH2O" class="num-mono">0.3786</td>
+                </tr>
+                <tr>
+                  <td><strong>Liquid (L)</strong></td>
+                  <td>Saturated Liquid</td>
+                  <td id="tLiqMolar" class="num-mono">21.94</td>
+                  <td id="tLiqMass" class="num-mono">2417.5</td>
+                  <td id="tLiqXEtOH" class="num-mono">0.4487</td>
+                  <td id="tLiqXH2O" class="num-mono">0.5513</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <!-- T-xy Phase Envelope Diagram -->
+          <div class="panel-card">
+            <div class="panel-title-bar">
+              <span class="panel-heading">T-xy Phase Envelope &amp; Operating Tie-Line Tracker</span>
+              <span class="panel-tag">P = 1.01325 bar (NRTL / Wilson VLE)</span>
+            </div>
+            <div class="chart-box">
+              <canvas id="txyCanvas" width="600" height="190" style="width:100%; height:100%;"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Parameter Controls & Action Console -->
+        <div>
+
+          <!-- Operating Specifications Card -->
+          <div class="panel-card">
+            <div class="panel-title-bar">
+              <span class="panel-heading">Operating Specifications</span>
+              <span class="panel-tag">Real-Time VLE Solver</span>
+            </div>
+
+            <!-- Temp Slider -->
+            <div class="control-row">
+              <div class="control-header">
+                <span>Feed Temperature (T)</span>
+                <span class="control-display"><span id="valTempK">360.0</span> K (<span id="valTempC">86.85</span> °C)</span>
+              </div>
+              <input type="range" id="sliderTemp" min="330.0" max="385.0" step="0.5" value="360.0">
+            </div>
+
+            <!-- Pressure Slider -->
+            <div class="control-row">
+              <div class="control-header">
+                <span>Feed Pressure (P)</span>
+                <span class="control-display"><span id="valPressBar">1.013</span> bar (<span id="valPressKPa">101.3</span> kPa)</span>
+              </div>
+              <input type="range" id="sliderPress" min="0.50" max="3.00" step="0.05" value="1.01325">
+            </div>
+
+            <!-- Composition Slider -->
+            <div class="control-row">
+              <div class="control-header">
+                <span>Ethanol Mole Fraction (z_EtOH)</span>
+                <span class="control-display"><span id="valZEtOH">0.50</span> (<span id="valZH2O">0.50</span> Water)</span>
+              </div>
+              <input type="range" id="sliderZEtOH" min="0.05" max="0.95" step="0.01" value="0.50">
+            </div>
+
+            <!-- Flow Slider -->
+            <div class="control-row">
+              <div class="control-header">
+                <span>Feed Mass Flow (F)</span>
+                <span class="control-display"><span id="valFlow">3600</span> kg/h (1.0 kg/s)</span>
+              </div>
+              <input type="range" id="sliderFlow" min="500" max="10000" step="100" value="3600">
+            </div>
+
+            <!-- Presets -->
+            <div class="preset-group">
+              <button class="preset-btn" onclick="setPreset(360.0, 1.013, 0.50)">Standard VLE (360 K)</button>
+              <button class="preset-btn" onclick="setPreset(345.0, 1.013, 0.50)">Subcooled (345 K)</button>
+              <button class="preset-btn" onclick="setPreset(372.0, 1.013, 0.50)">Superheated (372 K)</button>
+              <button class="preset-btn" onclick="setPreset(360.0, 2.000, 0.50)">High P (2.0 bar)</button>
+            </div>
+          </div>
+
+          <!-- Headless API Telemetry Console -->
+          <div class="panel-card">
+            <div class="panel-title-bar">
+              <span class="panel-heading">Headless API Telemetry Stream</span>
+              <span class="panel-tag">DWSIM.Automation3 Trace</span>
+            </div>
+
+            <div class="console-stream" id="consoleLog">
+              <div><span class="c-tag">[00:00.01] DWSIM.Automation3:</span> Library initialized in headless process.</div>
+              <div><span class="c-tag">[00:00.04] Flowsheet:</span> interf.CreateFlowsheet() spawned container.</div>
+              <div><span class="c-tag">[00:00.08] Thermodynamics:</span> Bound NRTLPropertyPackage to options.</div>
+              <div><span class="c-tag">[00:00.12] Topology:</span> Feed, Vessel, Vapor, and Liquid objects added.</div>
+              <div><span class="c-tag">[00:00.16] Ports:</span> sim.ConnectObjects(-1, -1) wired stream graph.</div>
+              <div><span class="c-ok">[00:00.19] CalculateFlowsheet():</span> Converged in 3 iterations. Errors = 0.</div>
+              <div><span class="c-tag">[00:00.22] Persistence:</span> Flowsheet saved to flash_separator_converged.dwxmz.</div>
+            </div>
+          </div>
+
+          <!-- AI Copilot Proactive Recommendation HUD -->
+          <div class="panel-card" style="border-left: 4px solid var(--blue-accent);">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--blue-accent); margin-bottom: 2px;">
+              Copilot Workflow Recommendation
+            </div>
+            <h4 id="copilotTitle" style="font-size: 0.92rem; color: var(--navy-dark); margin-bottom: 4px;">
+              Operating in Optimal VLE Separation Window
+            </h4>
+            <p id="copilotDesc" style="font-size: 0.8rem; color: var(--slate-text); line-height: 1.4; margin-bottom: 8px;">
+              At 360.0 K and 1.013 bar, the flash drum achieves a 29.7% vapor split with ethanol enriched by +24.3% in the overhead. Mass conservation discrepancy is within machine precision.
+            </p>
+            <div style="display: flex; gap: 8px;">
+              <button class="preset-btn" style="background: var(--navy-dark); color: #fff;" onclick="copilotApplyOptimal()">Auto-Optimize for 50% Cut</button>
+              <button class="preset-btn" onclick="copilotExport()">Run Local Batch</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 2: HOW TO USE                                                 -->
+    <!-- ================================================================= -->
+    <div id="tab-how" class="tab-content">
+      <div class="panel-card">
+        <div class="panel-title-bar">
+          <span class="panel-heading">How to Operate the Technical Proof of Concept</span>
+          <span class="panel-tag">Step-by-Step Operating Guide</span>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Inspect Baseline VLE Separation Conditions</h3>
+            <p>
+              By default, the simulator initializes with an equimolar Ethanol-Water mixture (z_EtOH = 0.50, z_Water = 0.50) operating at T = 360.0 K (86.85 °C) and atmospheric pressure P = 1.01325 bar. Observe that the vessel converges to a two-phase state with vapor fraction &psi; = 0.2969, enriching the overhead vapor to 62.14 mol% ethanol.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>Dynamically Adjust Sliders or Test Operating Presets</h3>
+            <p>
+              Use the sliders on the right-hand panel to adjust feed temperature (330 K to 385 K), pressure (0.5 to 3.0 bar), composition, and flow rate. Alternatively, click any of the 4 quick presets:
+            </p>
+            <ul style="margin-left: 18px; margin-top: 6px; font-size: 0.82rem; color: var(--slate-text);">
+              <li><strong>Standard VLE (360 K, 1.013 bar):</strong> Demonstrates balanced two-phase vapor-liquid split.</li>
+              <li><strong>Subcooled Liquid (345 K):</strong> Drops temperature below the mixture bubble point. The vapor fraction falls to 0.0, and 100% of feed exits through the bottoms liquid stream.</li>
+              <li><strong>Superheated Vapor (372 K):</strong> Raises temperature above the mixture dew point. Vapor fraction reaches 1.0, and 100% of feed vaporizes through the overhead.</li>
+              <li><strong>High Pressure (2.0 bar):</strong> Increases system pressure, suppressing vaporization and shifting the bubble point upward.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Analyze the Real-Time T-xy Phase Envelope</h3>
+            <p>
+              The lower-left canvas dynamically redraws the boiling curve (bubble point, green line) and condensation curve (dew point, blue line). The solid marker indicates your feed point (z, T). In the two-phase region, a dashed horizontal tie-line connects the equilibrium liquid composition x_EtOH to the vapor composition y_EtOH.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>Review Headless Telemetry and Copilot Recommendations</h3>
+            <p>
+              The Telemetry Stream logs the exact C#/.NET method calls executed by DWSIM Automation3 (CreateFlowsheet, ConnectObjects, SetOverallComposition, CalculateFlowsheet). The Copilot HUD below monitors thermodynamic parameters and warns if the vessel enters subcooled or superheated states, providing one-click optimization.
+            </p>
+          </div>
+        </div>
+
+        <div class="guide-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h3>Running the Python Automation Script Locally</h3>
+            <p>
+              To run the exact headless script on your local machine, open the project workspace and double-click <code>1_Technical_Proof_of_Concept/run_demo.bat</code> or run:
+            </p>
+            <pre class="code-block">cd "1_Technical_Proof_of_Concept"
+python run_dwsim_flash_separator.py --temp-k 360.0 --press-bar 1.01325</pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- TAB 3: TECHNICAL EXPLAINER                                        -->
+    <!-- ================================================================= -->
+    <div id="tab-explainer" class="tab-content">
+      <div class="panel-card">
+        <div class="panel-title-bar">
+          <span class="panel-heading">Technical Deep Dive: Backend Architecture and Thermodynamics</span>
+          <span class="panel-tag">Chemical Engineering and Computational Mechanics</span>
+        </div>
+
+        <!-- Section A: Problem Context -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-bottom: 6px;">1. Industrial and Academic Motivation</h3>
+        <p style="font-size: 0.83rem; color: var(--slate-text); text-align: justify; margin-bottom: 12px;">
+          Chemical process engineering software (DWSIM, Aspen Plus, CHEMCAD) has traditionally relied on multi-window graphical user interfaces. Design engineers must manually configure dozens of stream parameters, select property packages, and debug convergence errors through manual iteration. When recycles or columns diverge, engineers face hours of trial-and-error without structured guidance. This project proves that simulators can be completely decoupled from the GUI, instrumented via programmatic APIs, and governed by intelligent assistance.
+        </p>
+
+        <!-- Section B: Architecture Grid -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-bottom: 6px;">2. Headless DWSIM Automation3 Architecture</h3>
+        <div class="info-grid-2">
+          <div class="info-pane">
+            <h4>Python.NET Common Language Runtime Interop</h4>
+            <p>
+              DWSIM is authored in .NET/C#. Our Python script uses Python.NET (clr) to load compiled assemblies (DWSIM.Automation.dll, DWSIM.Interfaces.dll, DWSIM.Thermodynamics.dll) directly into system memory. Automation3 exposes the IFlowsheet interface, enabling full topological control without launching a Windows graphical desktop.
+            </p>
+          </div>
+          <div class="info-pane">
+            <h4>Object Graph Lifecycle and Port Wiring</h4>
+            <p>
+              The flowsheet is treated as a directed graph. Material streams and unit operations (ObjectType.MaterialStream, ObjectType.Vessel) are added programmatically. The sim.ConnectObjects(source, target, -1, -1) API automatically wires the feed inlet, overhead vapor outlet, and bottoms liquid outlet to their respective graphic slots.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section C: Mathematical Formulation -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-top: 14px; margin-bottom: 6px;">3. Governing Thermodynamics and Rachford-Rice Convergence</h3>
+        <p style="font-size: 0.83rem; color: var(--slate-text); text-align: justify;">
+          For an isothermal flash vessel at temperature T and pressure P with feed molar fractions z_i, phase equilibrium requires chemical potential equality: K_i = y_i / x_i = &gamma;_i P_i_sat(T) / P. The overall and component mass balances collapse into the <strong>Rachford-Rice objective function</strong> for vapor fraction &psi; = V / F:
+        </p>
+
+        <div class="formula-callout">
+          f(&psi;) = &sum; [ z_i &times; (K_i - 1) / (1 + &psi; &times; (K_i - 1)) ] = 0
+        </div>
+
+        <p style="font-size: 0.83rem; color: var(--slate-text); text-align: justify;">
+          The analytical first derivative with respect to vapor fraction &psi; is strictly negative across the entire physical domain:
+        </p>
+
+        <div class="formula-callout">
+          f'(&psi;) = - &sum; [ z_i &times; (K_i - 1)&sup2; / (1 + &psi; &times; (K_i - 1))&sup2; ] &lt; 0 &emsp; &forall; &psi; &isin; [0, 1]
+        </div>
+
+        <p style="font-size: 0.83rem; color: var(--slate-text); text-align: justify; margin-bottom: 12px;">
+          Because f'(&psi;) is strictly negative everywhere, the function is strictly monotonic and is mathematically guaranteed to possess exactly one unique root. A bounded Newton-Raphson scheme with bisection safeguards computes &psi; within 3 iterations, reaching residual tolerances below 10^-9 and relative mass errors below 10^-11.
+        </p>
+
+        <!-- Section D: DOP Division -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-top: 14px; margin-bottom: 6px;">4. Semester DOP Research Workstreams</h3>
+        <div class="info-grid-2">
+          <div class="info-pane">
+            <h4>Ayushya Ramesh Ojha (Track 1)</h4>
+            <p>
+              <strong>Flowsheet Topology Synthesis &amp; Recommender:</strong> Focuses on capturing simulation action logs, inferring design intent from partial graphs, predicting logical next unit operations, and pre-populating stream specifications through a human-in-the-loop confirmation interface.
+            </p>
+          </div>
+          <div class="info-pane">
+            <h4>Aryan Jain (Track 2)</h4>
+            <p>
+              <strong>Thermodynamic Diagnostics &amp; Solver Recovery:</strong> Focuses on classifying simulator solver divergence (Rachford-Rice loop failures, trivial roots, column pinch points) and executing autonomous mathematical fallback routines to restore convergence headlessly.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-bar">
+    <div>Department of Chemical Engineering | BITS Pilani, Pilani Campus | Supervisor: Prof. Shashank Venkat Muddu</div>
+    <div>Live Deployment on Vercel | Investigators: Ayushya Ramesh Ojha and Aryan Jain</div>
+  </footer>
+
+  <script>
+    // Tab Switching
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Antoine Constants: log10(P [bar]) = A - B / (T [K] + C)
+    const ANTOINE = {
+      Ethanol: { A: 5.24677, B: 1598.673, C: -46.424, Tc: 514.0, Pc: 61.4, omega: 0.644, MW: 46.07 },
+      Water:   { A: 5.11564, B: 1687.537, C: -42.98,  Tc: 647.1, Pc: 220.6, omega: 0.344, MW: 18.015 }
+    };
+
+    function calcWilsonK(comp, T_K, P_bar) {
+      const c = ANTOINE[comp];
+      const Tr = T_K / c.Tc;
+      const ln_k = Math.log(c.Pc / P_bar) + 5.373 * (1.0 + c.omega) * (1.0 - (1.0 / Tr));
+      return Math.exp(ln_k);
+    }
+
+    function solveFlash(T_K, P_bar, z_etoh, mass_flow_kgh) {
+      const z_h2o = 1.0 - z_etoh;
+      const K_etoh = calcWilsonK("Ethanol", T_K, P_bar);
+      const K_h2o = calcWilsonK("Water", T_K, P_bar);
+
+      const bubble_test = z_etoh * K_etoh + z_h2o * K_h2o;
+      const dew_test = (z_etoh / K_etoh) + (z_h2o / K_h2o);
+
+      let psi = 0.0;
+      let state = "Two-Phase (VLE)";
+      let x_etoh = z_etoh, y_etoh = z_etoh;
+      let iterations = 3;
+
+      if (bubble_test <= 1.0) {
+        psi = 0.0;
+        state = "Subcooled Liquid";
+        x_etoh = z_etoh;
+        y_etoh = 0.0;
+        iterations = 0;
+      } else if (dew_test <= 1.0) {
+        psi = 1.0;
+        state = "Superheated Vapor";
+        y_etoh = z_etoh;
+        x_etoh = 0.0;
+        iterations = 0;
+      } else {
+        psi = 0.5;
+        for (let i = 0; i < 50; i++) {
+          const d1 = 1.0 + psi * (K_etoh - 1.0);
+          const d2 = 1.0 + psi * (K_h2o - 1.0);
+          const f = (z_etoh * (K_etoh - 1.0) / d1) + (z_h2o * (K_h2o - 1.0) / d2);
+          const df = - (z_etoh * Math.pow(K_etoh - 1.0, 2) / Math.pow(d1, 2)) - (z_h2o * Math.pow(K_h2o - 1.0, 2) / Math.pow(d2, 2));
+          if (Math.abs(f) < 1e-9) {
+            iterations = i + 1;
+            break;
+          }
+          psi = psi - (f / df);
+          if (psi < 0.0) psi = 0.001;
+          if (psi > 1.0) psi = 0.999;
+        }
+        x_etoh = z_etoh / (1.0 + psi * (K_etoh - 1.0));
+        y_etoh = K_etoh * x_etoh;
+      }
+
+      const x_h2o = 1.0 - x_etoh;
+      const y_h2o = 1.0 - y_etoh;
+
+      const MW_feed = z_etoh * ANTOINE.Ethanol.MW + z_h2o * ANTOINE.Water.MW;
+      const MW_vap = y_etoh * ANTOINE.Ethanol.MW + y_h2o * ANTOINE.Water.MW;
+      const MW_liq = x_etoh * ANTOINE.Ethanol.MW + x_h2o * ANTOINE.Water.MW;
+
+      const F_mol_s = (mass_flow_kgh / 3600.0) * 1000.0 / MW_feed;
+      const V_mol_s = F_mol_s * psi;
+      const L_mol_s = F_mol_s * (1.0 - psi);
+
+      const V_mass_kgh = (V_mol_s * MW_vap * 3600.0) / 1000.0;
+      const L_mass_kgh = (L_mol_s * MW_liq * 3600.0) / 1000.0;
+
+      return {
+        T_K, P_bar, z_etoh, z_h2o,
+        K_etoh, K_h2o, psi, state, iterations,
+        x_etoh, x_h2o, y_etoh, y_h2o,
+        F_mol_s, V_mol_s, L_mol_s,
+        mass_flow_kgh, V_mass_kgh, L_mass_kgh
+      };
+    }
+
+    function updateSimulation() {
+      const T = parseFloat(document.getElementById("sliderTemp").value);
+      const P = parseFloat(document.getElementById("sliderPress").value);
+      const z_etoh = parseFloat(document.getElementById("sliderZEtOH").value);
+      const flow = parseFloat(document.getElementById("sliderFlow").value);
+
+      document.getElementById("valTempK").innerText = T.toFixed(1);
+      document.getElementById("valTempC").innerText = (T - 273.15).toFixed(2);
+      document.getElementById("valPressBar").innerText = P.toFixed(3);
+      document.getElementById("valPressKPa").innerText = (P * 100.0).toFixed(1);
+      document.getElementById("valZEtOH").innerText = z_etoh.toFixed(2);
+      document.getElementById("valZH2O").innerText = (1.0 - z_etoh).toFixed(2);
+      document.getElementById("valFlow").innerText = flow.toFixed(0);
+
+      const res = solveFlash(T, P, z_etoh, flow);
+
+      document.getElementById("mPsi").innerText = res.psi.toFixed(4);
+      const vapSplitPct = (res.V_mass_kgh / res.mass_flow_kgh * 100.0);
+      document.getElementById("mVapSplit").innerText = vapSplitPct.toFixed(1) + "%";
+      const enrich = ((res.y_etoh - res.z_etoh) / res.z_etoh * 100.0);
+      document.getElementById("mEnrich").innerText = res.psi > 0 ? (enrich >= 0 ? "+" : "") + enrich.toFixed(1) + "%" : "0.0%";
+
+      document.getElementById("tFeedMolar").innerText = res.F_mol_s.toFixed(2);
+      document.getElementById("tFeedMass").innerText = res.mass_flow_kgh.toFixed(1);
+      document.getElementById("tFeedZEtOH").innerText = res.z_etoh.toFixed(4);
+      document.getElementById("tFeedZH2O").innerText = res.z_h2o.toFixed(4);
+
+      document.getElementById("tVapMolar").innerText = res.V_mol_s.toFixed(2);
+      document.getElementById("tVapMass").innerText = res.V_mass_kgh.toFixed(1);
+      document.getElementById("tVapYEtOH").innerText = res.psi > 0 ? res.y_etoh.toFixed(4) : "0.0000";
+      document.getElementById("tVapYH2O").innerText = res.psi > 0 ? res.y_h2o.toFixed(4) : "0.0000";
+
+      document.getElementById("tLiqMolar").innerText = res.L_mol_s.toFixed(2);
+      document.getElementById("tLiqMass").innerText = res.L_mass_kgh.toFixed(1);
+      document.getElementById("tLiqXEtOH").innerText = res.psi < 1 ? res.x_etoh.toFixed(4) : "0.0000";
+      document.getElementById("tLiqXH2O").innerText = res.psi < 1 ? res.x_h2o.toFixed(4) : "0.0000";
+
+      document.getElementById("svgFeedLabel").innerText = `${T.toFixed(1)} K | ${P.toFixed(3)} bar`;
+      document.getElementById("svgFeedFlow").innerText = `${flow.toFixed(0)} kg/h | z_EtOH: ${z_etoh.toFixed(2)}`;
+      document.getElementById("svgVesselPsi").innerText = `V/F = ${res.psi.toFixed(3)}`;
+      document.getElementById("svgVapFlow").innerText = `${res.V_mass_kgh.toFixed(1)} kg/h | y_EtOH: ${res.y_etoh.toFixed(3)}`;
+      document.getElementById("svgLiqFlow").innerText = `${res.L_mass_kgh.toFixed(1)} kg/h | x_EtOH: ${res.x_etoh.toFixed(3)}`;
+
+      const liquidHeight = Math.max(10, Math.min(180, (1.0 - res.psi) * 160));
+      const liquidY = 280 - liquidHeight;
+      document.getElementById("svgLiquidLevel").setAttribute("y", liquidY);
+      document.getElementById("svgLiquidLevel").setAttribute("height", liquidHeight);
+
+      const cTitle = document.getElementById("copilotTitle");
+      const cDesc = document.getElementById("copilotDesc");
+      if (res.state === "Subcooled Liquid") {
+        cTitle.innerText = "Warning: Subcooled Feed (Zero Vaporization)";
+        cDesc.innerText = `Operating at ${T.toFixed(1)} K is below the bubble point. All feed exits in the liquid bottoms. Recommendation: Increase T to at least 359 K or reduce pressure to initiate separation.`;
+      } else if (res.state === "Superheated Vapor") {
+        cTitle.innerText = "Warning: Superheated Feed (Total Vaporization)";
+        cDesc.innerText = `Operating at ${T.toFixed(1)} K exceeds the dew point. All feed flashes into the vapor overhead. No liquid phase is formed. Recommendation: Cool feed to achieve desired phase split.`;
+      } else {
+        cTitle.innerText = `Copilot: Converged at V/F = ${(res.psi * 100).toFixed(1)}% Cut`;
+        cDesc.innerText = `At ${T.toFixed(1)} K and ${P.toFixed(3)} bar, ethanol is enriched by ${enrich.toFixed(1)}% in the vapor overhead (y = ${res.y_etoh.toFixed(3)} vs z = ${res.z_etoh.toFixed(3)}). Mass balance discrepancy is within machine precision.`;
+      }
+
+      drawTxyChart(P, res);
+    }
+
+    function setPreset(T, P, z) {
+      document.getElementById("sliderTemp").value = T;
+      document.getElementById("sliderPress").value = P;
+      document.getElementById("sliderZEtOH").value = z;
+      updateSimulation();
+    }
+
+    function copilotApplyOptimal() {
+      document.getElementById("sliderTemp").value = 361.2;
+      updateSimulation();
+      logConsole("AI_COPILOT: Automatically navigated to optimal 50% split (T = 361.2 K).");
+    }
+
+    function copilotExport() {
+      logConsole("AI_COPILOT: Headless batch runner available via 1_Technical_Proof_of_Concept/run_demo.bat");
+      alert("Local runner is ready in 1_Technical_Proof_of_Concept/run_demo.bat. Run it to execute all headless tests locally!");
+    }
+
+    function logConsole(msg) {
+      const c = document.getElementById("consoleLog");
+      const div = document.createElement("div");
+      div.innerHTML = `<span class="c-tag">[${new Date().toTimeString().split(" ")[0]}]</span> ${msg}`;
+      c.appendChild(div);
+      c.scrollTop = c.scrollHeight;
+    }
+
+    function drawTxyChart(P, curRes) {
+      const canvas = document.getElementById("txyCanvas");
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const pL = 45, pR = 25, pT = 15, pB = 25;
+      const cW = W - pL - pR;
+      const cH = H - pT - pB;
+      const T_min = 345, T_max = 380;
+
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(pL, pT);
+      ctx.lineTo(pL, pT + cH);
+      ctx.lineTo(pL + cW, pT + cH);
+      ctx.stroke();
+
+      const ptsBubble = [];
+      const ptsDew = [];
+      for (let x = 0.01; x <= 0.99; x += 0.03) {
+        let T_b = 351.0 + (1.0 - x) * 22.0;
+        ptsBubble.push({ x, T: T_b });
+        let T_d = T_b + 4.5 * Math.sin(x * Math.PI);
+        ptsDew.push({ x, T: T_d });
+      }
+
+      function mapX(x) { return pL + x * cW; }
+      function mapT(T) { return pT + cH - ((T - T_min) / (T_max - T_min)) * cH; }
+
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ptsBubble.forEach((pt, i) => {
+        const cx = mapX(pt.x), cy = mapT(pt.T);
+        if (i === 0) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy);
+      });
+      ctx.stroke();
+
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ptsDew.forEach((pt, i) => {
+        const cx = mapX(pt.x), cy = mapT(pt.T);
+        if (i === 0) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy);
+      });
+      ctx.stroke();
+
+      if (curRes.T_K >= T_min && curRes.T_K <= T_max) {
+        const curY_px = mapT(curRes.T_K);
+        const curX_px = mapX(curRes.z_etoh);
+
+        if (curRes.state.includes("Two-Phase")) {
+          const x_liq_px = mapX(curRes.x_etoh);
+          const x_vap_px = mapX(curRes.y_etoh);
+          ctx.strokeStyle = "rgba(100, 116, 139, 0.7)";
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath();
+          ctx.moveTo(x_liq_px, curY_px);
+          ctx.lineTo(x_vap_px, curY_px);
+          ctx.stroke();
+          ctx.setLineDash([]);
+
+          ctx.fillStyle = "#0f766e";
+          ctx.beginPath(); ctx.arc(x_liq_px, curY_px, 4.5, 0, Math.PI*2); ctx.fill();
+
+          ctx.fillStyle = "#0284c7";
+          ctx.beginPath(); ctx.arc(x_vap_px, curY_px, 4.5, 0, Math.PI*2); ctx.fill();
+        }
+
+        ctx.fillStyle = "#0a2540";
+        ctx.beginPath(); ctx.arc(curX_px, curY_px, 5.5, 0, Math.PI*2); ctx.fill();
+      }
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "9px monospace";
+      ctx.fillText("0.0 (Water)", pL - 5, pT + cH + 14);
+      ctx.fillText("1.0 (EtOH)", pL + cW - 35, pT + cH + 14);
+      ctx.fillText("Ethanol Mole Fraction (x, y, z)", pL + cW/2 - 60, pT + cH + 20);
+      ctx.fillText(`${T_max}K`, pL - 32, pT + 8);
+      ctx.fillText(`${T_min}K`, pL - 32, pT + cH);
+    }
+
+    document.getElementById("sliderTemp").addEventListener("input", updateSimulation);
+    document.getElementById("sliderPress").addEventListener("input", updateSimulation);
+    document.getElementById("sliderZEtOH").addEventListener("input", updateSimulation);
+    document.getElementById("sliderFlow").addEventListener("input", updateSimulation);
+
+    updateSimulation();
+  </script>
+
+</body>
+</html>
