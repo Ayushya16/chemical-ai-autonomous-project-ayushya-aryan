@@ -459,6 +459,7 @@
         <button class="nav-tab-btn" onclick="switchTab('tab-how', this)">How to Use</button>
         <button class="nav-tab-btn" onclick="switchTab('tab-explainer', this)">Technical Explainer</button>
         <button class="nav-tab-btn" onclick="switchTab('tab-limitations', this)">Full-Scale Limitations &amp; Technical Lags</button>
+      <button class="nav-tab-btn" onclick="switchTab('tab-assistive-tech', this)">Assistive AI &amp; Startup Roadmap</button>
       </div>
     </div>
   </header>
@@ -1030,6 +1031,192 @@ python run_dwsim_flash_separator.py --temp-k 360.0 --press-bar 1.01325</pre>
             <li><strong>Transactional State Middleware:</strong> Building an event-driven IPC broker that creates shadow copies of the flowsheet graph in memory, validates convergence offline, and only commits mutations to the active simulator upon user confirmation.</li>
             <li><strong>Multi-Objective Boundary Envelope Checking:</strong> Coupling thermodynamic solvers with equipment hydraulic modules (tray flooding calculators, residence time auditors) to ensure AI suggestions are physically buildable and safe.</li>
           </ul>
+        </div>
+
+      </div>
+    </div>
+
+  
+    <!-- ================================================================= -->
+    <!-- TAB 5: ASSISTIVE AI & STARTUP ROADMAP                             -->
+    <!-- ================================================================= -->
+    <div id="tab-assistive-tech" class="tab-content">
+      <div style="max-width: 1040px; margin: 0 auto;">
+
+        <div style="border-bottom: 2px solid #0a2540; padding-bottom: 12px; margin-bottom: 20px;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; font-weight: 700;">Long-Term Strategic Vision &bull; Product Commercialization</div>
+          <h2 style="font-size: 1.45rem; color: #0a2540; font-weight: 800; margin: 4px 0 6px;">From Headless Simulator to Ambient Assistive Copilot</h2>
+          <p style="font-size: 0.88rem; color: #000000; line-height: 1.5;">
+            How single-unit flowsheet automation serves as the foundational validation engine for an enterprise platform that learns complex, non-text engineering workflows and delivers proactive, human-in-the-loop assistance.
+          </p>
+        </div>
+
+        <!-- Pillar 1: The Transition Path -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #0a2540; border-radius: 6px; padding: 20px; margin-bottom: 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="background: #0a2540; color: #ffffff; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 3px;">PILLAR 1</span>
+            <h3 style="font-size: 1.12rem; color: #0a2540; margin: 0; font-weight: 700;">How Headless Simulation Leads to Assistive Technology Building</h3>
+          </div>
+          <p style="font-size: 0.84rem; color: #000000; line-height: 1.55; margin-bottom: 12px;">
+            Current developer assistants (GitHub Copilot, Cursor) have transformed software engineering because code is structured, AST-parseable, and bounded by formal compiler syntaxes. Conversely, <strong>technical and industrial engineering software</strong> (Aspen Plus, DWSIM, ChemCAD, AutoCAD, SolidWorks, and industrial mold design) remains largely unassisted. In chemical process simulation, an engineer must navigate hundreds of nested graphical menus, configure dozens of interdependent thermodynamic binary interaction parameters, specify stream conditions, and manually troubleshoot numerical solver divergences.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px; padding: 12px 14px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 6px;">The 3-Phase Interaction Lifecycle</div>
+              <ul style="font-size: 0.79rem; color: #000000; line-height: 1.5; margin-left: 16px;">
+                <li><strong>Sessions 1 to 3 (Passive Observation):</strong> The engine tracks repetitive navigation chains, parameter assignments, and solver diagnostics silently in the background without interrupting the engineer.</li>
+                <li><strong>Sessions 4 to 10 (Calibrated Suggestion):</strong> System introduces non-intrusive ghost recommendations (e.g., pre-populating Wilson binary coefficients when an azeotropic mixture is detected) and asks one-click confirmations.</li>
+                <li><strong>Session 10+ (Proactive Autonomous Execution):</strong> For verified routine operations, the assistant executes end-to-end configuration chains with instant undo and reversibility.</li>
+              </ul>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 4px; padding: 12px 14px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 6px;">Why Chemical Engineering First?</div>
+              <p style="font-size: 0.79rem; color: #000000; line-height: 1.48;">
+                Chemical simulation represents the ultimate stress-test for assistive AI: actions are governed by strict physical conservation laws (mass, energy, momentum) and non-linear thermodynamics. If an assistant can learn to reliably set up and converge multi-unit flowsheets without proposing physically impossible states, the underlying architecture generalizes directly to manufacturing (injection molding, metallurgy), CAD/BIM suites, and corporate operations.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 2: Core Engineering Questions to be Figured Out -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #00d4b8; border-radius: 6px; padding: 20px; margin-bottom: 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="background: #00d4b8; color: #0a2540; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 3px;">PILLAR 2</span>
+            <h3 style="font-size: 1.12rem; color: #0a2540; margin: 0; font-weight: 700;">What All Needs to be Figured Out (Core Research Challenges)</h3>
+          </div>
+          <p style="font-size: 0.84rem; color: #000000; line-height: 1.55; margin-bottom: 14px;">
+            Transitioning from our single-unit DWSIM automation proof of concept to an ambient product requires resolving five fundamental engineering bottlenecks:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">1. Telemetry vs. Vision in Legacy GUIs</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Unlike modern web apps with accessible DOM trees, legacy enterprise software (Aspen Plus, ChemCAD, AutoCAD) runs on Win32, COM, or custom C++ canvas renderers. We must engineer a hybrid observer combining OS accessibility trees (UI Automation) with real-time screen-diffing computer vision to infer user actions without latency.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">2. Dynamic Flowsheet Knowledge Graph</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Text tokens cannot capture stream topologies or thermodynamic state spaces. We must develop Graph Neural Network (GNN) embeddings that represent unit blocks, connectivity matrices, phase envelopes, and user intent as an evolving topological state vector.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">3. Self-Blurring Enterprise IP Privacy</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Chemical formulations, catalyst recipes, and plant P&amp;IDs are tightly guarded corporate trade secrets. The system must feature an on-device Self-Blurring boundary that strips proprietary coordinates, company identifiers, and passwords before local inference, ensuring zero external data leakage.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">4. Multi-Tenant Learning Governance</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                How to aggregate workflow efficiencies across an engineering department without blending private preferences? We need federated LoRA adapters: global organizational best practices are learned centrally while individual engineer habits remain isolated locally on-device.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">5. Physics-Informed Safety &amp; Non-Disruption</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                AI suggestions must never cause numerical crashes or violate mass and energy conservation. Every action must be verified against an analytical thermodynamic envelope before dispatching, coupled with transactional rollback (instant Ctrl+Z checkpointing).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Required Technical Capabilities -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #635bff; border-radius: 6px; padding: 20px; margin-bottom: 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="background: #635bff; color: #ffffff; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 3px;">PILLAR 3</span>
+            <h3 style="font-size: 1.12rem; color: #0a2540; margin: 0; font-weight: 700;">Required Technical Capabilities &amp; System Architecture</h3>
+          </div>
+          <p style="font-size: 0.84rem; color: #000000; line-height: 1.55; margin-bottom: 14px;">
+            The production-grade assistive copilot comprises a modular, five-layer technical stack designed for ultra-low latency (&lt; 100 ms) and local workstation execution:
+          </p>
+          <div style="border: 1px solid #cbd5e1; border-radius: 6px; overflow: hidden; margin-bottom: 12px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.80rem;">
+              <thead style="background: #0a2540; color: #ffffff;">
+                <tr>
+                  <th style="padding: 8px 12px; text-align: left; width: 22%;">System Layer</th>
+                  <th style="padding: 8px 12px; text-align: left; width: 38%;">Core Technical Capability</th>
+                  <th style="padding: 8px 12px; text-align: left; width: 40%;">Implementation Technology</th>
+                </tr>
+              </thead>
+              <tbody style="color: #000000;">
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 8px 12px; font-weight: 700; background: #f8fafc;">1. Ambient Perception</td>
+                  <td style="padding: 8px 12px;">Continuous capture of active window state, focus rects, mouse movements, and UI trees.</td>
+                  <td style="padding: 8px 12px;">Windows UI Automation (UIA3), Win32 Event Hooks, and lightweight screen-diffing.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 8px 12px; font-weight: 700; background: #f8fafc;">2. Context Representation</td>
+                  <td style="padding: 8px 12px;">Topological graph modeling of flowsheets, unit operation blocks, and stream properties.</td>
+                  <td style="padding: 8px 12px;">Flowsheet Graph Neural Networks (GNN), NetworkX topology matrices, and SQLite vector cache.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 8px 12px; font-weight: 700; background: #f8fafc;">3. Decision &amp; Intent Policy</td>
+                  <td style="padding: 8px 12px;">Predicts next high-probability parameter settings, routes streams, and flags inefficiencies.</td>
+                  <td style="padding: 8px 12px;">Fine-tuned SLM (8B parameter local quantized model) + Hierarchical Reinforcement Learning.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e2e8f0;">
+                  <td style="padding: 8px 12px; font-weight: 700; background: #f8fafc;">4. Physics Safety Filter</td>
+                  <td style="padding: 8px 12px;">Validates proposed configurations against thermodynamic feasibility and equipment bounds before execution.</td>
+                  <td style="padding: 8px 12px;">Rachford-Rice Wilson flash engine, Souders-Brown flooding limiters, and mass conservation checks.</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 12px; font-weight: 700; background: #f8fafc;">5. Execution &amp; Overlay UI</td>
+                  <td style="padding: 8px 12px;">Transparent desktop HUD offering ghost suggestions, one-click accept (Tab), and instant rollback (Ctrl+Z).</td>
+                  <td style="padding: 8px 12px;">Rust / Tauri lightweight desktop overlay, SendInput hardware simulation, and COM API dispatch.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pillar 4: Product Roadmap to User-Ready Product -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <span style="background: #f59e0b; color: #ffffff; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 3px;">PILLAR 4</span>
+            <h3 style="font-size: 1.12rem; color: #0a2540; margin: 0; font-weight: 700;">How Many More Things Are Needed to Build a User-Ready Industrial Product</h3>
+          </div>
+          <p style="font-size: 0.84rem; color: #000000; line-height: 1.55; margin-bottom: 14px;">
+            To bridge the gap from an academic DOP prototype to a scalable commercial B2B product, six critical engineering workstreams remain to be completed:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;">
+            <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; background: #f8fafc;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">Workstream 1: Universal Simulator Connectors</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Expand beyond DWSIM Automation3 to implement production-grade COM/OLE connectors for Aspen Plus, ChemCAD, AVEVA PRO/II, and Honeywell UniSim, enabling cross-platform flowsheet inspection.
+              </p>
+            </div>
+            <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; background: #f8fafc;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">Workstream 2: Native Desktop Sidecar &amp; Ghost UI</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Package the engine into a zero-lag desktop client (&lt; 50 MB RAM footprint) running natively alongside engineering software, displaying translucent ghost autocomplete suggestions directly on canvas.
+              </p>
+            </div>
+            <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; background: #f8fafc;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">Workstream 3: Workflow Inefficiency &amp; Friction Profiler</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Build an automated telemetry analytics module that identifies recurring time sinks (e.g., repeatedly tuning distillation reflux ratios across runs) and suggests automated macros.
+              </p>
+            </div>
+            <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; background: #f8fafc;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">Workstream 4: Air-Gapped Enterprise Security Compliance</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Chemical refineries and EPC contractors demand strict air-gapped security (SOC2 Type II, ISO 27001). All models must run 100% on-premise without outbound network access.
+              </p>
+            </div>
+            <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; background: #f8fafc;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">Workstream 5: Multi-Stage Column &amp; Reaction Surrogates</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Advance our analytical flash solver to handle multi-stage distillation columns, plug-flow reactors, and recycle loops via Physics-Informed Neural Network (PINN) surrogates.
+              </p>
+            </div>
+            <div style="border: 1px solid #e2e8f0; border-radius: 4px; padding: 12px; background: #f8fafc;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #0a2540; margin-bottom: 4px;">Workstream 6: Pilot Deployment &amp; Industry Trials</div>
+              <p style="font-size: 0.78rem; color: #000000; line-height: 1.45;">
+                Conduct closed beta trials with 3 to 5 design consultancies to quantify reduction in setup time, error rates, and user onboarding friction before commercial release.
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
