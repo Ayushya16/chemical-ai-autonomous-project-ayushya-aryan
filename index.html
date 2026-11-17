@@ -458,6 +458,7 @@
         <button class="nav-tab-btn active" onclick="switchTab('tab-sim', this)">Interactive Simulator</button>
         <button class="nav-tab-btn" onclick="switchTab('tab-how', this)">How to Use</button>
         <button class="nav-tab-btn" onclick="switchTab('tab-explainer', this)">Technical Explainer</button>
+        <button class="nav-tab-btn" onclick="switchTab('tab-limitations', this)">Full-Scale Limitations &amp; Technical Lags</button>
       </div>
     </div>
   </header>
@@ -866,12 +867,180 @@ python run_dwsim_flash_separator.py --temp-k 360.0 --press-bar 1.01325</pre>
       </div>
     </div>
 
+
+    <!-- ================================================================= -->
+    <!-- TAB 4: FULL-SCALE LIMITATIONS & TECHNICAL LAGS                    -->
+    <!-- ================================================================= -->
+    <div id="tab-limitations" class="tab-content">
+      <div class="panel-card">
+        <div class="panel-title-bar">
+          <span class="panel-heading">Engineering Feasibility Analysis: Why This Prototype Cannot Immediately Scale to Industrial Models</span>
+          <span class="panel-tag">Thermodynamic Bottlenecks, Numerical Lags, and Open Research Problems</span>
+        </div>
+
+        <!-- Alert Banner -->
+        <div style="background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #d97706; padding: 12px 16px; border-radius: 4px; margin-bottom: 16px;">
+          <h4 style="color: #92400e; font-size: 0.92rem; margin-bottom: 4px;">The Dimensionality Gap in Chemical Process Modeling</h4>
+          <p style="color: #78350f; font-size: 0.82rem; line-height: 1.45; margin: 0;">
+            While our proof of concept demonstrates that headless API orchestration and single-unit VLE equilibrium can be solved reliably in sub-milliseconds, deploying an autonomous copilot onto a full-scale industrial chemical plant (such as an ethylene cracker, petroleum refinery, or ammonia synthesis loop) introduces severe mathematical stiffness, non-linear feedback loops, and architectural lags. Below is an exhaustive breakdown of the technical limitations, unsolved engineering problems, and computational lags that must be addressed before autonomous AI control is viable in industrial production.
+          </p>
+        </div>
+
+        <!-- Technical Pillars Grid -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-bottom: 10px;">1. Critical Mathematical &amp; Thermodynamic Bottlenecks</h3>
+        
+        <div class="info-grid-2">
+          <!-- Item 1 -->
+          <div class="info-pane" style="border-left-color: #dc2626;">
+            <h4 style="color: #b91c1c;">A. Recycle Loops &amp; Tear-Stream Divergence</h4>
+            <p>
+              <strong>The Prototype Simplification:</strong> Our flash separator is purely feed-forward (<i>F</i> &rarr; <i>V</i> + <i>L</i>). The information flow is unidirectional and cannot oscillate.
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Industrial Reality:</strong> Industrial flowsheets recycle 40% to 75% of unreacted materials back into reactors and columns. This forms coupled non-linear algebraic loops requiring tear streams solved by iterative acceleration (Wegstein, Broyden, or Direct Substitution).
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Technical Lag / Failure Mode:</strong> When an AI copilot autonomously perturbs an operating parameter, errors propagate non-linearly through recycles. Small adjustments can amplify across loops, inducing limit cycles, catastrophic divergence, or non-physical cyclic runaway.
+            </p>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="info-pane" style="border-left-color: #dc2626;">
+            <h4 style="color: #b91c1c;">B. Stiff DAE Systems in Multi-Stage Columns (MESH Equations)</h4>
+            <p>
+              <strong>The Prototype Simplification:</strong> A flash vessel represents exactly 1 theoretical equilibrium stage with a single scalar Rachford-Rice equation.
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Industrial Reality:</strong> Industrial distillation and absorption columns contain 40 to 100+ non-equilibrium trays governed by simultaneous MESH equations (Mass, Equilibrium, Summation, Heat). This forms a block-banded Jacobian matrix with condition numbers &kappa;(<i>J</i>) &gt; 10<sup>12</sup>.
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Technical Lag / Failure Mode:</strong> Evaluating numerical gradients across stiff column stages causes singular Jacobians and negative tray temperatures. An autonomous copilot cannot predict interior tray hydraulics (weeping, flooding, entrainment) from equilibrium alone.
+            </p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="info-pane" style="border-left-color: #d97706;">
+            <h4 style="color: #b45309;">C. High-Dimensional Phase Envelopes &amp; False Local Minima</h4>
+            <p>
+              <strong>The Prototype Simplification:</strong> Binary Ethanol-Water system with predictable phase behavior.
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Industrial Reality:</strong> Petroleum and petrochemical systems involve 30 to 80+ components (heavy hydrocarbons, light gases, electrolytes, water). Equations of State (Peng-Robinson, SRK-BM, Electrolyte-NRTL) exhibit multiple cubic compressibility factor roots (<i>Z</i><sub>vap</sub>, <i>Z</i><sub>liq</sub>, non-physical intermediate roots).
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Technical Lag / Failure Mode:</strong> Standard local solvers frequently collapse into false trivial roots (<i>K<sub>i</sub></i> = 1.0) or miss three-phase liquid-liquid-vapor (VLLE) splits. Rigorous global Gibbs free energy minimization (min &Delta;<i>G</i><sub>mix</sub> via Tangent Plane Distance analysis) in 50-dimensional space requires immense compute and cannot run in real time.
+            </p>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="info-pane" style="border-left-color: #d97706;">
+            <h4 style="color: #b45309;">D. Equipment Hydraulics, Geometry, &amp; Mechanical Envelopes</h4>
+            <p>
+              <strong>The Prototype Simplification:</strong> Assumes infinite vessel volume, perfect phase disengagement, zero pressure drop (&Delta;<i>P</i> = 0), and unconstrained vessel capacity.
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>The Industrial Reality:</strong> Real vessels are constrained by strict physical geometry:
+            </p>
+            <div class="formula-callout" style="font-size: 0.76rem; padding: 4px 8px; margin: 4px 0;">
+              Souders-Brown Limit: <i>v</i><sub>max</sub> = <i>K<sub>v</sub></i> &times; [(&rho;<sub><i>L</i></sub> &minus; &rho;<sub><i>V</i></sub>) / &rho;<sub><i>V</i></sub>]<sup>0.5</sup>
+            </div>
+            <p style="margin-top: 4px;">
+              <strong>The Technical Lag / Failure Mode:</strong> If an AI increases vapor throughput to optimize separation, actual vapor velocity can exceed <i>v</i><sub>max</sub>, causing massive liquid carryover into compressors, pump cavitation from low liquid residence time (&lt; 3 min), or vessel over-pressurization exceeding ASME relief limits.
+            </p>
+          </div>
+        </div>
+
+        <!-- Section 2: Systems & Software Architecture Lags -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-top: 18px; margin-bottom: 10px;">2. Systems Engineering &amp; Computational Architecture Lags</h3>
+
+        <div class="info-grid-2">
+          <!-- Item 5 -->
+          <div class="info-pane" style="border-left-color: #2563eb;">
+            <h4 style="color: #1d4ed8;">E. Computational Solver Latency vs. Real-Time UX Requirements</h4>
+            <p>
+              <strong>The Latency Gap:</strong> In our lightweight web/Python solver, convergence occurs in &lt; 1 millisecond. In full industrial simulators (Aspen Plus, Aspen HYSYS, full-flowsheet DWSIM), a single converged flowsheet run requires between <strong>5 and 45 seconds</strong>. Large optimization sweeps take minutes or hours.
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>Why Real-Time Copilot Lags:</strong> A reactive suggestion engine (similar to GitHub Copilot or Cursor) requires sub-300 ms response times to feel interactive. Waiting 30 seconds for the backend simulator to test whether a suggested unit or recycle converges creates unacceptable friction, forcing the system to rely on unverified heuristics.
+            </p>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="info-pane" style="border-left-color: #2563eb;">
+            <h4 style="color: #1d4ed8;">F. Simulator Process Memory Concurrency &amp; State Desynchronization</h4>
+            <p>
+              <strong>The Threading Problem:</strong> DWSIM and Aspen Plus automation APIs communicate across unmanaged COM/.NET process boundaries. The underlying calculation engines are single-threaded and lack transactional database semantics (ACID rollbacks).
+            </p>
+            <p style="margin-top: 6px;">
+              <strong>Failure Consequence:</strong> If an AI agent programmatically mutates flowsheet topology (e.g., wiring ports or changing property packages) while the GUI thread is rendering or while a human user is editing, memory collisions, corrupted port pointers, and stale cache states cause simulator hard crashes.
+            </p>
+          </div>
+        </div>
+
+        <!-- Synthesis Table -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-top: 18px; margin-bottom: 10px;">3. Comparative Gap Analysis: Proof of Concept vs. Industrial Model</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem; margin: 10px 0;">
+          <thead>
+            <tr style="background: var(--navy-dark); color: #ffffff;">
+              <th style="padding: 6px 10px; border: 1px solid #cbd5e1; text-align: left; width: 22%;">System Dimension</th>
+              <th style="padding: 6px 10px; border: 1px solid #cbd5e1; text-align: left; width: 38%;">Current Technical Proof of Concept</th>
+              <th style="padding: 6px 10px; border: 1px solid #cbd5e1; text-align: left; width: 40%;">Industrial Full-Scale Reality</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1; font-weight: 700; background: #f8fafc;">Chemical Complexity</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Binary Ethanol-Water mixture (2 species).</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">30 to 80+ petroleum fractions, sour water, polar azeotropes, electrolytes.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1; font-weight: 700;">Topological Coupling</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Single standalone flash drum (feed-forward only).</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Complex plantwide recycles, heat integration networks, pumparounds.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1; font-weight: 700; background: #f8fafc;">Mathematical System</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">1 scalar monotonic equation: <i>f</i>'(&psi;) &lt; 0 strictly.</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Stiff DAE systems (5,000+ coupled MESH equations, condition number &gt; 10<sup>12</sup>).</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1; font-weight: 700;">Engine Latency</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Analytical solve time &lt; 1 ms (instantaneous).</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Full flowsheet convergence takes 5 to 45+ seconds per iteration.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1; font-weight: 700; background: #f8fafc;">Equipment Constraints</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Ideal thermodynamic phase split only.</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Souders-Brown flooding limit, NPSH pump cavitation, ASME relief pressure limits.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1; font-weight: 700;">Autonomous Safety</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Simulation sandboxed; zero physical hazard.</td>
+              <td style="padding: 6px 10px; border: 1px solid #cbd5e1;">Safety Instrumented Systems (SIS), SIL ratings, catastrophic plant trip risks.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Research Roadmap -->
+        <h3 style="font-size: 0.95rem; color: var(--navy-dark); margin-top: 18px; margin-bottom: 10px;">4. What Needs to Be Figured Out in Semester Research</h3>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 3px solid #0a2540; padding: 12px 16px; border-radius: 0 4px 4px 0;">
+          <ul style="margin-left: 18px; font-size: 0.81rem; color: #000000; line-height: 1.5;">
+            <li><strong>Physics-Informed Neural Network (PINN) Surrogates:</strong> Training offline deep neural surrogates on converged simulation datasets to predict flowsheet viability in sub-50 ms, bypassing the 30-second simulator latency.</li>
+            <li><strong>Tear-Stream Sensitivity Forecasting:</strong> Developing graph neural algorithms that identify optimal tear streams and calculate local condition numbers before modifying recycles to prevent divergence.</li>
+            <li><strong>Transactional State Middleware:</strong> Building an event-driven IPC broker that creates shadow copies of the flowsheet graph in memory, validates convergence offline, and only commits mutations to the active simulator upon user confirmation.</li>
+            <li><strong>Multi-Objective Boundary Envelope Checking:</strong> Coupling thermodynamic solvers with equipment hydraulic modules (tray flooding calculators, residence time auditors) to ensure AI suggestions are physically buildable and safe.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer -->
   <footer class="footer-bar">
     <div>Department of Chemical Engineering | BITS Pilani, Pilani Campus | Supervisor: Prof. Shashank Venkat Muddu</div>
-    <div>Live Deployment on Vercel | Investigators: Ayushya Ramesh Ojha and Aryan Jain</div>
+    <div>Live Demonstration: Chemical AI Autonomous Project_Ayushya Aryan | Investigators: Ayushya Ramesh Ojha and Aryan Jain</div>
   </footer>
 
   <script>
