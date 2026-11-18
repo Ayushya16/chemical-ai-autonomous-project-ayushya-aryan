@@ -1610,6 +1610,72 @@
           <p class="doc-sub">How single-unit flowsheet automation serves as the foundational validation engine for an enterprise platform that learns complex, non-text engineering workflows and delivers proactive, human-in-the-loop assistance.</p>
         </div>
 
+        <!-- ============================================================= -->
+        <!-- EXECUTIVE PLAIN-ENGLISH PRIMER: THE PRODUCT & SCALING LIMITS   -->
+        <!-- ============================================================= -->
+        <div class="doc-card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 30, 0.95) 100%); margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="background: rgba(56, 189, 248, 0.15); color: var(--accent-blue); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;">Executive Plain-English Overview</span>
+              <span style="color: #ffffff; font-size: 15px; font-weight: 700;">What is the Product &amp; Why Can't It Be Built to Full Scale Overnight?</span>
+            </div>
+            <span style="font-size: 11px; color: var(--text-muted); background: rgba(255, 255, 255, 0.04); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.06);">Non-Technical Summary for Stakeholders</span>
+          </div>
+
+          <!-- SUB-SECTION 1: WHAT IS THE PRODUCT -->
+          <div style="background: rgba(56, 189, 248, 0.05); border-left: 3px solid var(--accent-blue); padding: 14px 16px; border-radius: 0 6px 6px 0; margin-bottom: 16px;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--accent-blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>💡 Part 1: What is the Product? (Think "GitHub Copilot for Desktop Engineering")</span>
+            </div>
+            <p style="margin-bottom: 10px;">
+              If you write software code, tools like <strong>GitHub Copilot</strong> or <strong>Cursor</strong> watch what you type, guess what function you want next, and write it for you with one click. 
+              <strong>Our product does the exact same thing, but for heavy desktop engineering software</strong>—starting with chemical plant simulators like Aspen HYSYS and DWSIM, and eventually expanding to CAD/CAM tools like AutoCAD and SolidWorks.
+            </p>
+            <p style="margin-bottom: 10px;">
+              Currently, setting up a chemical process simulation is agonizingly manual: an engineer must click through dozens of deep legacy menus, pick from over 50 confusing thermodynamic equations, type in hundreds of temperature/pressure values by hand, and wire up complex pipelines. One wrong choice causes the mathematical solver to crash with cryptic error codes.
+            </p>
+            <p style="margin-bottom: 8px;"><strong>How our ambient copilot works in day-to-day practice:</strong></p>
+            <ul style="margin-bottom: 0;">
+              <li><strong>Ambient Background Observer:</strong> It quietly runs as a lightweight sidecar on the engineer's desktop, watching mouse clicks, open windows, and flowsheet connections without getting in the way.</li>
+              <li><strong>Intent Inference &amp; Smart Autocomplete:</strong> When an engineer places a flash drum or distillation column on the canvas, the AI infers what they are trying to achieve (e.g., <em>"separating ethanol from water"</em>) and proactively recommends the exact thermodynamic model (e.g., Wilson/NRTL) and operating parameters that will guarantee numerical convergence.</li>
+              <li><strong>Human-in-the-Loop Confirmation:</strong> The AI never takes unilateral control of the mouse or executes blind changes. Instead, it offers a translucent preview badge (like a ghost code completion). The engineer reviews the suggested inputs and presses <code>Tab</code> or clicks once to apply them instantly.</li>
+              <li><strong>Physical Pre-Check:</strong> Before dispatching any input into the simulator, our headless physics engine runs an ultra-fast verification in the background to ensure mass and energy balances are conserved and no physical hazard (like an overpressurized vessel) is created.</li>
+            </ul>
+          </div>
+
+          <!-- SUB-SECTION 2: WHY CAN'T IT BE BUILT TO FULL SCALE YET -->
+          <div style="background: rgba(245, 158, 11, 0.05); border-left: 3px solid var(--accent-amber); padding: 14px 16px; border-radius: 0 6px 6px 0;">
+            <div style="font-size: 14px; font-weight: 700; color: var(--accent-amber); margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+              <span>⚠️ Part 2: Why Can't It Be Built to a Full Scale Yet? (The 5 Fundamental Roadblocks)</span>
+            </div>
+            <p style="margin-bottom: 10px;">
+              Building an AI copilot for text code is relatively straightforward because code is plain text with open compilers and millions of open-source repositories on GitHub. Building an AI copilot for complex desktop engineering systems faces severe physical, technical, and data barriers that require rigorous phased R&amp;D:
+            </p>
+            <ul style="margin-bottom: 0;">
+              <li>
+                <strong>1. Legacy GUI Black Boxes (No Modern Web APIs):</strong> 
+                Commercial engineering tools like Aspen Plus, HYSYS, and ChemCAD were built 20 to 30 years ago on legacy Windows Win32/C++ architectures. They do not have modern web DOM trees or clean REST APIs. To "see" what an engineer is doing, we have to invent hybrid perception systems that combine operating system accessibility hooks with real-time computer vision screen scraping.
+              </li>
+              <li>
+                <strong>2. Real-World Physical Catastrophe vs. Harmless Code Bugs:</strong> 
+                If GitHub Copilot makes a mistake in Python code, your script throws a harmless error and you delete the line. In chemical plants, refineries, and nuclear facilities, an incorrect temperature, wrong pressure rating, or invalid activity package in the design can cause physical column flooding, equipment explosions, or millions of dollars in plant downtime. The AI cannot "hallucinate"—every single recommendation must be bounded by rigid physical conservation laws.
+              </li>
+              <li>
+                <strong>3. Proprietary Corporate Data &amp; Zero Public Datasets:</strong> 
+                GitHub has billions of lines of open-source code for training AI models. In industrial engineering, chemical flowsheets, proprietary catalyst recipes, and plant P&amp;IDs are closely guarded corporate trade secrets. There is no public dataset of 500,000 industrial plant flowsheets. Training data must be generated synthetically via automated headless simulation sweeps or learned privately on-premise.
+              </li>
+              <li>
+                <strong>4. The 60-Second Simulator Latency Trap:</strong> 
+                An interactive copilot must respond in under 100 milliseconds to feel intuitive. While our single-unit flash separator prototype solves in 0.4 milliseconds, a real-world industrial plant flowsheet with 30 unit blocks and recycle loops takes <strong>10 to 60+ seconds</strong> to converge in Aspen. An AI cannot explore trial actions in real time on the actual commercial simulator without first building ultra-fast neural network surrogate approximations.
+              </li>
+              <li>
+                <strong>5. Air-Gapped Security &amp; Intellectual Property Protection:</strong> 
+                Chemical conglomerates and manufacturing plants operate inside air-gapped, isolated networks without internet access to prevent industrial espionage. We cannot simply send plant diagrams to cloud APIs like OpenAI or Claude. The entire intelligence engine, computer vision stack, and physics verifier must run fully locally on modest desktop hardware.
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="doc-card doc-card-accent">
           <div class="doc-card-title">PILLAR 1: How Headless Simulation Leads to Assistive Tech Building</div>
           <p>Current developer assistants (GitHub Copilot, Cursor) have transformed software engineering because code is structured, AST-parseable, and bounded by formal compiler syntaxes. Conversely, <strong>technical and industrial engineering software</strong> (Aspen Plus, DWSIM, ChemCAD, AutoCAD, SolidWorks, and industrial mold design) remains largely unassisted:</p>
