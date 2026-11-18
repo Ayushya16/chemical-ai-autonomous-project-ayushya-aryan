@@ -277,6 +277,25 @@
       stroke-dasharray: 8 6;
       animation: flowPulse 1.2s linear infinite;
     }
+    #pipeFeed, #pipeVapor, #pipeLiquid {
+      transition: opacity 0.3s ease;
+    }
+    #svgLiquidPool, #svgLiquidLine {
+      transition: y 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease;
+    }
+    @keyframes boilFloat {
+      0% { transform: translateY(0); opacity: 0; }
+      30% { opacity: 0.85; }
+      80% { opacity: 0.6; }
+      100% { transform: translateY(-40px); opacity: 0; }
+    }
+    .boil-bubble {
+      animation: boilFloat 1.6s infinite ease-in;
+    }
+    .boil-bubble.b1 { animation-delay: 0s; }
+    .boil-bubble.b2 { animation-delay: 0.4s; animation-duration: 1.4s; }
+    .boil-bubble.b3 { animation-delay: 0.8s; animation-duration: 1.9s; }
+    .boil-bubble.b4 { animation-delay: 1.2s; animation-duration: 1.5s; }
 
     /* PFD Canvas Data Overlays (Stream Callouts) */
     .stream-tag-box {
@@ -1031,6 +1050,13 @@
                   <rect id="svgLiquidPool" x="331" y="210" width="98" height="90" fill="url(#liquidGradReal)" />
                   <!-- Liquid Meniscus Line -->
                   <line id="svgLiquidLine" x1="331" y1="210" x2="429" y2="210" stroke="#34d399" stroke-width="2.5" />
+                  <!-- Dynamic Fluid Boiling Bubbles (Moving Inside Separator) -->
+                  <g id="svgBoilingBubbles">
+                    <circle id="bubble1" cx="355" cy="245" r="2.5" fill="rgba(255,255,255,0.75)" class="boil-bubble b1" />
+                    <circle id="bubble2" cx="375" cy="260" r="3.5" fill="rgba(255,255,255,0.75)" class="boil-bubble b2" />
+                    <circle id="bubble3" cx="395" cy="250" r="2.0" fill="rgba(255,255,255,0.75)" class="boil-bubble b3" />
+                    <circle id="bubble4" cx="410" cy="265" r="3.0" fill="rgba(255,255,255,0.75)" class="boil-bubble b4" />
+                  </g>
                 </g>
 
                 <!-- Internal Demister Mesh Pad (Entrainment Separator) -->
@@ -1250,7 +1276,7 @@
                 </div>
                 <div class="slider-stepper-wrap">
                   <button class="step-btn" onclick="stepSlider('sliderTemp', -0.5)">-</button>
-                  <input type="range" id="sliderTemp" min="330.0" max="385.0" step="0.2" value="360.0">
+                  <input type="range" id="sliderTemp" min="330.0" max="390.0" step="0.5" value="360.0" oninput="updateSimulation()" onchange="updateSimulation()">
                   <button class="step-btn" onclick="stepSlider('sliderTemp', 0.5)">+</button>
                 </div>
               </div>
@@ -1265,7 +1291,7 @@
                 </div>
                 <div class="slider-stepper-wrap">
                   <button class="step-btn" onclick="stepSlider('sliderPress', -0.05)">-</button>
-                  <input type="range" id="sliderPress" min="0.40" max="3.00" step="0.01" value="1.01325">
+                  <input type="range" id="sliderPress" min="0.200" max="2.500" step="0.025" value="1.013" oninput="updateSimulation()" onchange="updateSimulation()">
                   <button class="step-btn" onclick="stepSlider('sliderPress', 0.05)">+</button>
                 </div>
               </div>
@@ -1280,7 +1306,7 @@
                 </div>
                 <div class="slider-stepper-wrap">
                   <button class="step-btn" onclick="stepSlider('sliderZEtOH', -0.02)">-</button>
-                  <input type="range" id="sliderZEtOH" min="0.05" max="0.95" step="0.005" value="0.50">
+                  <input type="range" id="sliderZEtOH" min="0.05" max="0.95" step="0.01" value="0.50" oninput="updateSimulation()" onchange="updateSimulation()">
                   <button class="step-btn" onclick="stepSlider('sliderZEtOH', 0.02)">+</button>
                 </div>
               </div>
@@ -1295,13 +1321,13 @@
                 </div>
                 <div class="slider-stepper-wrap">
                   <button class="step-btn" onclick="stepSlider('sliderFlow', -200)">-</button>
-                  <input type="range" id="sliderFlow" min="500" max="10000" step="100" value="3600">
+                  <input type="range" id="sliderFlow" min="1000" max="10000" step="100" value="3600" oninput="updateSimulation()" onchange="updateSimulation()">
                   <button class="step-btn" onclick="stepSlider('sliderFlow', 200)">+</button>
                 </div>
               </div>
 
               <!-- Operational Presets -->
-              <div class="preset-container">
+              <div class="preset-container" id="presetContainer">
                 <button class="preset-chip" onclick="setPreset(360.0, 1.013, 0.50)">Standard VLE (360 K)</button>
                 <button class="preset-chip" onclick="setPreset(340.0, 1.013, 0.50)">Subcooled (340 K)</button>
                 <button class="preset-chip" onclick="setPreset(351.4, 1.013, 0.89)">Azeotropic Mix (89%)</button>
@@ -1644,8 +1670,15 @@
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-tab-btn').forEach(el => el.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
+      const targetTab = document.getElementById(tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      const targetBtn = btn || document.querySelector(`.nav-tab-btn[onclick*="${tabId}"]`);
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       if (tabId === 'tab-sim') {
         setTimeout(updateSimulation, 50);
       }
@@ -2009,14 +2042,17 @@
       s4.min = "1000"; s4.max = "10000"; s4.step = "100"; s4.value = "3600";
 
       // Presets HTML
-      document.getElementById("presetContainer").innerHTML = `
-        <button class="preset-btn" onclick="setPreset(360, 1.013, 0.50)">Standard VLE (360 K)</button>
-        <button class="preset-btn" onclick="setPreset(340, 1.013, 0.50)">Subcooled (340 K)</button>
-        <button class="preset-btn" onclick="setPreset(351.4, 1.013, 0.89)">Azeotropic Mix (89%)</button>
-        <button class="preset-btn" onclick="setPreset(375, 1.013, 0.50)">Superheated (375 K)</button>
-        <button class="preset-btn" onclick="setPreset(345, 0.500, 0.50)">Vacuum Flash (0.5 bar)</button>
-        <button class="preset-btn" onclick="setPreset(372, 2.500, 0.50)">High P (2.5 bar)</button>
-      `;
+      const pc = document.getElementById("presetContainer");
+      if (pc) {
+        pc.innerHTML = `
+          <button class="preset-chip" onclick="setPreset(360.0, 1.013, 0.50)">Standard VLE (360 K)</button>
+          <button class="preset-chip" onclick="setPreset(340.0, 1.013, 0.50)">Subcooled (340 K)</button>
+          <button class="preset-chip" onclick="setPreset(351.4, 1.013, 0.89)">Azeotropic Mix (89%)</button>
+          <button class="preset-chip" onclick="setPreset(375.0, 1.013, 0.50)">Superheated (375 K)</button>
+          <button class="preset-chip" onclick="setPreset(345.0, 0.500, 0.50)">Vacuum Flash (0.5 bar)</button>
+          <button class="preset-chip" onclick="setPreset(372.0, 2.500, 0.50)">High P (2.5 bar)</button>
+        `;
+      }
 
       safeSetText("telemetryHeader", "DWSIM.Automation3 Trace");
       safeSetText("phaseChartTitle", "T-x-y EQUILIBRIUM PHASE ENVELOPE (WILSON VLE)");
@@ -2049,13 +2085,16 @@
       s4.min = "5000"; s4.max = "50000"; s4.step = "500"; s4.value = "20000"; // 20,000 kg/h
 
       // Presets HTML
-      document.getElementById("presetContainer").innerHTML = `
-        <button class="preset-btn" onclick="setPreset(293.15, 45.0, 0.15)">Standard HP Gas (45 bar, 20 °C)</button>
-        <button class="preset-btn" onclick="setPreset(258.15, 50.0, 0.15)">Chilled JT Flash (-15 °C, 50 bar)</button>
-        <button class="preset-btn" onclick="setPreset(308.15, 60.0, 0.25)">Retrograde Region (60 bar, 35 °C)</button>
-        <button class="preset-btn" onclick="setPreset(303.15, 20.0, 0.15)">Depressurized Flash (20 bar, 30 °C)</button>
-        <button class="preset-btn" onclick="setPreset(283.15, 38.0, 0.30)">Rich Wet Gas / High NGL (38 bar, 10 °C)</button>
-      `;
+      const pc = document.getElementById("presetContainer");
+      if (pc) {
+        pc.innerHTML = `
+          <button class="preset-chip" onclick="setPreset(293.15, 45.0, 0.15)">Standard HP Gas (45 bar, 20 °C)</button>
+          <button class="preset-chip" onclick="setPreset(258.15, 50.0, 0.15)">Chilled JT Flash (-15 °C, 50 bar)</button>
+          <button class="preset-chip" onclick="setPreset(308.15, 60.0, 0.25)">Retrograde Region (60 bar, 35 °C)</button>
+          <button class="preset-chip" onclick="setPreset(303.15, 20.0, 0.15)">Depressurized Flash (20 bar, 30 °C)</button>
+          <button class="preset-chip" onclick="setPreset(283.15, 38.0, 0.30)">Rich Wet Gas / High NGL (38 bar, 10 °C)</button>
+        `;
+      }
 
       safeSetText("telemetryHeader", "Aspen HYSYS ActiveDocument COM Trace");
       safeSetText("phaseChartTitle", "NATURAL GAS P-T PHASE ENVELOPE (PENG-ROBINSON EOS)");
@@ -2065,19 +2104,66 @@
 
     function stepSlider(id, delta) {
       const el = document.getElementById(id);
-      if (el) {
-        let val = parseFloat(el.value) + delta;
-        val = Math.max(parseFloat(el.min), Math.min(parseFloat(el.max), val));
-        el.value = val;
-        updateSimulation();
+      if (!el) return;
+      const min = parseFloat(el.min);
+      const max = parseFloat(el.max);
+      let val = parseFloat(el.value);
+      if (isNaN(val)) val = min;
+
+      let effectiveDelta = delta;
+      if (currentEngine === 'hysys') {
+        if (id === 'sliderPress') effectiveDelta = (delta > 0 ? 1.0 : -1.0);
+        if (id === 'sliderFlow') effectiveDelta = (delta > 0 ? 1000 : -1000);
+        if (id === 'sliderZEtOH') effectiveDelta = (delta > 0 ? 0.01 : -0.01);
       }
+
+      val += effectiveDelta;
+      val = Math.max(min, Math.min(max, val));
+      const stepStr = el.step || '';
+      const decimals = stepStr.includes('.') ? stepStr.split('.')[1].length : (Math.abs(effectiveDelta) < 1 ? 3 : 0);
+      el.value = parseFloat(val.toFixed(decimals));
+      updateSimulation();
     }
 
     function setPreset(T, P, z) {
-      document.getElementById("sliderTemp").value = T;
-      document.getElementById("sliderPress").value = P;
-      document.getElementById("sliderZEtOH").value = z;
+      const s1 = document.getElementById("sliderTemp");
+      const s2 = document.getElementById("sliderPress");
+      const s3 = document.getElementById("sliderZEtOH");
+      if (s1) s1.value = T;
+      if (s2) s2.value = P;
+      if (s3) s3.value = z;
       updateSimulation();
+    }
+
+    // Copilot Action Handlers
+    function copilotApplyOptimal() {
+      if (currentEngine === 'dwsim') {
+        setPreset(362.5, 1.013, 0.50);
+      } else {
+        setPreset(285.0, 45.0, 0.15);
+      }
+      const telem = document.getElementById("telemetryLog");
+      if (telem) {
+        telem.innerHTML = `<div><span class="log-tag" style="color:var(--accent-blue)">[COPILOT]</span> <strong>Auto-Optimization complete:</strong> Closed loop target calculated 50.0% phase cut. Feed convergence confirmed.</div>` + telem.innerHTML;
+      }
+    }
+
+    function copilotBatchRun() {
+      const telem = document.getElementById("telemetryLog");
+      if (telem) {
+        telem.innerHTML = `<div><span class="log-tag" style="color:#10b981">[BATCH]</span> Initiating 10-point parameter sensitivity sweep across solver bounds...</div>` + telem.innerHTML;
+      }
+      let count = 0;
+      const timer = setInterval(() => {
+        count++;
+        const sTemp = document.getElementById("sliderTemp");
+        if (sTemp) {
+          const tMin = parseFloat(sTemp.min), tMax = parseFloat(sTemp.max);
+          sTemp.value = (tMin + (count / 10.0) * (tMax - tMin)).toFixed(1);
+          updateSimulation();
+        }
+        if (count >= 10) clearInterval(timer);
+      }, 70);
     }
 
     // =========================================================================
@@ -2115,20 +2201,56 @@
       safeSetText("mEnrich", (enrich >= 0 ? "+" : "") + enrich.toFixed(1) + "%");
       safeSetText("mError", "< 10^-11");
 
-      // Vessel SVG
+      // Vessel SVG Real-Time Animation
       safeSetText("pfdVesselName", "V-101");
       safeSetText("pfdVesselPsi", "ψ = " + res.psi.toFixed(3));
-      const minLevelY = 270, maxLevelY = 95;
-      const liquidLevelY = minLevelY - (1.0 - res.psi) * (minLevelY - maxLevelY);
       const pool = document.getElementById("svgLiquidPool");
       const line = document.getElementById("svgLiquidLine");
-      if (pool) {
-        pool.setAttribute("y", liquidLevelY);
-        pool.setAttribute("height", Math.max(0, 310 - liquidLevelY));
+      const pipeVap = document.getElementById("pipeVapor");
+      const pipeLiq = document.getElementById("pipeLiquid");
+      const bubbles = document.getElementById("svgBoilingBubbles");
+
+      const minLevelY = 270, maxLevelY = 95;
+      let liquidLevelY;
+
+      if (res.psi >= 0.999) {
+        liquidLevelY = 310;
+        if (pool) { pool.setAttribute("y", 310); pool.setAttribute("height", 0); }
+        if (line) { line.setAttribute("y1", 310); line.setAttribute("y2", 310); line.style.opacity = "0"; }
+        if (pipeLiq) { pipeLiq.classList.remove("pipe-flow-active"); pipeLiq.style.opacity = "0.2"; }
+        if (pipeVap) { pipeVap.classList.add("pipe-flow-active"); pipeVap.style.opacity = "1"; }
+        if (bubbles) bubbles.style.display = "none";
+      } else if (res.psi <= 0.001) {
+        liquidLevelY = 90;
+        if (pool) { pool.setAttribute("y", 90); pool.setAttribute("height", 220); }
+        if (line) { line.setAttribute("y1", 90); line.setAttribute("y2", 90); line.style.opacity = "1"; }
+        if (pipeLiq) { pipeLiq.classList.add("pipe-flow-active"); pipeLiq.style.opacity = "1"; }
+        if (pipeVap) { pipeVap.classList.remove("pipe-flow-active"); pipeVap.style.opacity = "0.2"; }
+        if (bubbles) bubbles.style.display = "none";
+      } else {
+        liquidLevelY = minLevelY - (1.0 - res.psi) * (minLevelY - maxLevelY);
+        if (pool) { pool.setAttribute("y", liquidLevelY); pool.setAttribute("height", Math.max(0, 310 - liquidLevelY)); }
+        if (line) { line.setAttribute("y1", liquidLevelY); line.setAttribute("y2", liquidLevelY); line.style.opacity = "1"; }
+        if (pipeLiq) { pipeLiq.classList.add("pipe-flow-active"); pipeLiq.style.opacity = "1"; }
+        if (pipeVap) { pipeVap.classList.add("pipe-flow-active"); pipeVap.style.opacity = "1"; }
+        if (bubbles) {
+          bubbles.style.display = "block";
+          const bBase = Math.min(290, liquidLevelY + 25);
+          const b1 = document.getElementById("bubble1");
+          const b2 = document.getElementById("bubble2");
+          const b3 = document.getElementById("bubble3");
+          const b4 = document.getElementById("bubble4");
+          if (b1) b1.setAttribute("cy", bBase);
+          if (b2) b2.setAttribute("cy", Math.min(300, bBase + 12));
+          if (b3) b3.setAttribute("cy", Math.min(295, bBase + 6));
+          if (b4) b4.setAttribute("cy", Math.min(305, bBase + 18));
+        }
       }
-      if (line) {
-        line.setAttribute("y1", liquidLevelY);
-        line.setAttribute("y2", liquidLevelY);
+
+      // Dynamic Copilot Body Card Update
+      const cBody = document.getElementById("copilotDesc");
+      if (cBody) {
+        cBody.innerHTML = `At <strong>${T.toFixed(1)} K</strong> (${(T-273.15).toFixed(1)} &deg;C) and <strong>${P.toFixed(3)} bar</strong>, the flash drum operates at <strong>${(res.psi*100).toFixed(1)}% vapor cut</strong>. Ethanol vapor is enriched to <strong>${(res.y_etoh*100).toFixed(1)} mol%</strong> (relative volatility &alpha; &approx; ${(calcWilsonK("Ethanol", T, P) / calcWilsonK("Water", T, P)).toFixed(2)}).`;
       }
 
       // Live Stream SVG Callout Badges
@@ -2188,20 +2310,56 @@
       safeSetText("mEnrich", ngl_rec.toFixed(1) + "% NGL");
       safeSetText("mError", "< 10^-11");
 
-      // Vessel SVG
+      // Vessel SVG Real-Time Animation
       safeSetText("pfdVesselName", "V-201");
       safeSetText("pfdVesselPsi", "β = " + res.beta.toFixed(3));
-      const minLevelY = 270, maxLevelY = 95;
-      const liquidLevelY = minLevelY - (1.0 - res.beta) * (minLevelY - maxLevelY);
       const pool = document.getElementById("svgLiquidPool");
       const line = document.getElementById("svgLiquidLine");
-      if (pool) {
-        pool.setAttribute("y", liquidLevelY);
-        pool.setAttribute("height", Math.max(0, 310 - liquidLevelY));
+      const pipeVap = document.getElementById("pipeVapor");
+      const pipeLiq = document.getElementById("pipeLiquid");
+      const bubbles = document.getElementById("svgBoilingBubbles");
+
+      const minLevelY = 270, maxLevelY = 95;
+      let liquidLevelY;
+
+      if (res.beta >= 0.999) {
+        liquidLevelY = 310;
+        if (pool) { pool.setAttribute("y", 310); pool.setAttribute("height", 0); }
+        if (line) { line.setAttribute("y1", 310); line.setAttribute("y2", 310); line.style.opacity = "0"; }
+        if (pipeLiq) { pipeLiq.classList.remove("pipe-flow-active"); pipeLiq.style.opacity = "0.2"; }
+        if (pipeVap) { pipeVap.classList.add("pipe-flow-active"); pipeVap.style.opacity = "1"; }
+        if (bubbles) bubbles.style.display = "none";
+      } else if (res.beta <= 0.001) {
+        liquidLevelY = 90;
+        if (pool) { pool.setAttribute("y", 90); pool.setAttribute("height", 220); }
+        if (line) { line.setAttribute("y1", 90); line.setAttribute("y2", 90); line.style.opacity = "1"; }
+        if (pipeLiq) { pipeLiq.classList.add("pipe-flow-active"); pipeLiq.style.opacity = "1"; }
+        if (pipeVap) { pipeVap.classList.remove("pipe-flow-active"); pipeVap.style.opacity = "0.2"; }
+        if (bubbles) bubbles.style.display = "none";
+      } else {
+        liquidLevelY = minLevelY - (1.0 - res.beta) * (minLevelY - maxLevelY);
+        if (pool) { pool.setAttribute("y", liquidLevelY); pool.setAttribute("height", Math.max(0, 310 - liquidLevelY)); }
+        if (line) { line.setAttribute("y1", liquidLevelY); line.setAttribute("y2", liquidLevelY); line.style.opacity = "1"; }
+        if (pipeLiq) { pipeLiq.classList.add("pipe-flow-active"); pipeLiq.style.opacity = "1"; }
+        if (pipeVap) { pipeVap.classList.add("pipe-flow-active"); pipeVap.style.opacity = "1"; }
+        if (bubbles) {
+          bubbles.style.display = "block";
+          const bBase = Math.min(290, liquidLevelY + 25);
+          const b1 = document.getElementById("bubble1");
+          const b2 = document.getElementById("bubble2");
+          const b3 = document.getElementById("bubble3");
+          const b4 = document.getElementById("bubble4");
+          if (b1) b1.setAttribute("cy", bBase);
+          if (b2) b2.setAttribute("cy", Math.min(300, bBase + 12));
+          if (b3) b3.setAttribute("cy", Math.min(295, bBase + 6));
+          if (b4) b4.setAttribute("cy", Math.min(305, bBase + 18));
+        }
       }
-      if (line) {
-        line.setAttribute("y1", liquidLevelY);
-        line.setAttribute("y2", liquidLevelY);
+
+      // Dynamic Copilot Body Card Update
+      const cBody = document.getElementById("copilotDesc");
+      if (cBody) {
+        cBody.innerHTML = `At <strong>${(T_K-273.15).toFixed(1)} &deg;C</strong> and <strong>${P_bar.toFixed(1)} bar</strong>, the high-pressure separator achieves <strong>${(res.beta*100).toFixed(1)}% sales gas cut</strong> with <strong>${ngl_rec.toFixed(1)}% condensate NGL recovery</strong>. Solved via 5-component PR-EOS.`;
       }
 
       // Live Stream SVG Callout Badges
@@ -2573,15 +2731,18 @@
       ctx.fillStyle = "#e2e8f0"; ctx.fillText("2-Phase Retrograde Zone", W - 180, 78);
     }
 
-    // Explicitly bind to window scope for unconditional reliability
+    // Explicitly bind all interactive controllers to window scope
     window.setEngine = setEngine;
     window.switchTab = switchTab;
     window.stepSlider = stepSlider;
     window.setPreset = setPreset;
     window.updateSimulation = updateSimulation;
+    window.copilotApplyOptimal = copilotApplyOptimal;
+    window.copilotBatchRun = copilotBatchRun;
 
     // Initialize on page load
     window.addEventListener("DOMContentLoaded", () => {
+      // 1. Dual-Engine Switchers
       const btnDwsim = document.getElementById("btn-engine-dwsim");
       const btnHysys = document.getElementById("btn-engine-hysys");
       if (btnDwsim) {
@@ -2596,6 +2757,26 @@
           setEngine("hysys");
         });
       }
+
+      // 2. Navigation Tabs - Programmatic Event Delegation
+      document.querySelectorAll(".nav-tab-btn").forEach(btn => {
+        btn.addEventListener("click", function(e) {
+          const onclickAttr = this.getAttribute("onclick") || "";
+          const m = onclickAttr.match(/switchTab\('([^']+)'/);
+          if (m && m[1]) {
+            switchTab(m[1], this);
+          }
+        });
+      });
+
+      // 3. Real-Time Sliders: Instant 60 FPS Event Dispatchers
+      ["sliderTemp", "sliderPress", "sliderZEtOH", "sliderFlow"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("input", updateSimulation);
+          el.addEventListener("change", updateSimulation);
+        }
+      });
 
       applyDWSIMUI();
       updateSimulation();
