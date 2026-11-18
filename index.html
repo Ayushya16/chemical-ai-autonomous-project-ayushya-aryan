@@ -2573,8 +2573,30 @@
       ctx.fillStyle = "#e2e8f0"; ctx.fillText("2-Phase Retrograde Zone", W - 180, 78);
     }
 
+    // Explicitly bind to window scope for unconditional reliability
+    window.setEngine = setEngine;
+    window.switchTab = switchTab;
+    window.stepSlider = stepSlider;
+    window.setPreset = setPreset;
+    window.updateSimulation = updateSimulation;
+
     // Initialize on page load
     window.addEventListener("DOMContentLoaded", () => {
+      const btnDwsim = document.getElementById("btn-engine-dwsim");
+      const btnHysys = document.getElementById("btn-engine-hysys");
+      if (btnDwsim) {
+        btnDwsim.addEventListener("click", (e) => {
+          e.preventDefault();
+          setEngine("dwsim");
+        });
+      }
+      if (btnHysys) {
+        btnHysys.addEventListener("click", (e) => {
+          e.preventDefault();
+          setEngine("hysys");
+        });
+      }
+
       applyDWSIMUI();
       updateSimulation();
     });
