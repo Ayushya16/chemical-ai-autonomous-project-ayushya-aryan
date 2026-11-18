@@ -3,7 +3,7 @@ Flash Separator Demonstration & Parametric Sweep Runner
 ======================================================
 Course: CHE F376 / F377 - Design Oriented Project (DOP), BITS Pilani
 Authors: Ayushya Ramesh Ojha & Aryan Jain
-Supervisor: Prof. Shashank Venkat Muddu
+Supervisor: Faculty Advisory
 
 Demonstrates:
   1. Instant verification of the flash separator convergence.
@@ -60,13 +60,20 @@ def run_parametric_temperature_sweep():
 def open_interactive_dashboard():
     """Opens the interactive web demo in the user's default browser."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    html_path = os.path.join(script_dir, "interactive_flash_demo.html")
-    if os.path.exists(html_path):
-        print(f"\n[DASHBOARD] Opening Interactive Flowsheet Dashboard in default browser:")
-        print(f"            file:///{html_path.replace(os.sep, '/')}")
-        webbrowser.open(f"file:///{html_path}")
-    else:
-        print(f"[DASHBOARD] Notice: HTML dashboard file not found at {html_path}")
+    candidates = [
+        os.path.join(script_dir, "..", "3_Interactive_Web_App", "index.html"),
+        os.path.join(script_dir, "..", "..", "3_Hosted_Web_Demo_and_Repository", "index.html"),
+        os.path.join(script_dir, "interactive_flash_demo.html")
+    ]
+    for html_path in candidates:
+        if os.path.exists(html_path):
+            abs_p = os.path.abspath(html_path)
+            print(f"\n[DASHBOARD] Opening Interactive Flowsheet Dashboard in default browser:")
+            print(f"            file:///{abs_p.replace(os.sep, '/')}")
+            webbrowser.open(f"file:///{abs_p}")
+            return
+    print("\n[DASHBOARD] Opening Live Hosted Web Demo in browser:")
+    webbrowser.open("https://ayushya16.github.io/chemical-ai-autonomous-project-ayushya-aryan/")
 
 
 def main():
@@ -79,7 +86,7 @@ def main():
     print("\n" + "#" * 78)
     print("  BITS PILANI - DEPARTMENT OF CHEMICAL ENGINEERING")
     print("  DESIGN ORIENTED PROJECT (DOP) TECHNICAL DELIVERABLE")
-    print("  Students: Ayushya Ramesh Ojha & Aryan Jain | Supervisor: Prof. Shashank Venkat Muddu")
+    print("  Students: Ayushya Ramesh Ojha & Aryan Jain | Supervisor: Faculty Advisory")
     print("#" * 78)
 
     # 1. Primary Benchmark Execution

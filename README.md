@@ -2,7 +2,7 @@
 **Department of Chemical Engineering | BITS Pilani, Pilani Campus**
 
 * **Course Code:** CHE F376 / CHE F377 Design Oriented Project (3 Units)
-* **Faculty Supervisor:** Prof. Shashank Venkat Muddu
+* **Faculty Supervisor:** Faculty Advisory
 * **Student Investigators:** Ayushya Ramesh Ojha (ID: 20241228) and Aryan Jain
 * **Live Interactive Web Demo:** https://ayushya16.github.io/dwsim-flash-separator-copilot/
 

@@ -3,7 +3,7 @@ Standalone Thermodynamic Flash Separator Verification Engine
 =============================================================
 Course: CHE F376 / F377 - Design Oriented Project (DOP), BITS Pilani
 Students: Ayushya Ramesh Ojha & Aryan Jain
-Supervisor: Prof. Shashank Venkat Muddu
+Supervisor: Faculty Advisory
 
 Description:
   Independent, zero-dependency thermodynamic flash separator solver implementing

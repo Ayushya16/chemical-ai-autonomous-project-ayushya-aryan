@@ -3,7 +3,7 @@ DWSIM Headless Automation Script: Flash Separator Setup & Convergence
 =====================================================================
 Course: CHE F376 / F377 - Design Oriented Project (DOP), BITS Pilani
 Students: Ayushya Ramesh Ojha (f20241228@pilani.bits-pilani.ac.in) & Aryan Jain
-Supervisor: Prof. Shashank Venkat Muddu, Department of Chemical Engineering
+Supervisor: Faculty Advisory, Department of Chemical Engineering
 
 Deliverable #1 for DOP Consent:
   A working Python script (using DWSIM's automation API or similar) that
@@ -296,7 +296,7 @@ def main():
     print("  BITS Pilani - Department of Chemical Engineering")
     print("  Course: CHE F376/F377 (Design Oriented Project)")
     print("  Student Authors: Ayushya Ramesh Ojha & Aryan Jain")
-    print("  Faculty Supervisor: Prof. Shashank Venkat Muddu")
+    print("  Faculty Supervisor: Faculty Advisory")
     print("=" * 78)
 
     dwsim_dir = None if args.force_standalone else find_dwsim_installation(args.dwsim_path)
@@ -335,7 +335,7 @@ def main():
 
     print("[SUCCESS] Headless convergence proof completed.")
     print("          Both the DWSIM Automation3 API script and the standalone thermodynamic")
-    print("          verification engine are ready for review by Prof. Shashank Venkat Muddu.")
+    print("          verification engine are ready for review by Faculty Advisory.")
     return 0
 
 

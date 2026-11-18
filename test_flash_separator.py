@@ -3,7 +3,7 @@ Automated Unit Tests & Convergence Assertion Suite
 ==================================================
 Course: CHE F376 / F377 - Design Oriented Project (DOP), BITS Pilani
 Students: Ayushya Ramesh Ojha & Aryan Jain
-Supervisor: Prof. Shashank Venkat Muddu
+Supervisor: Faculty Advisory
 
 Verifies:
   1. Bubble point boundary conditions (Subcooled single-phase liquid).
