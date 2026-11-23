@@ -1164,6 +1164,112 @@
       top: -0.35em;
     }
 
+    /* =========================================================================
+       TASTE-SKILL MICRO-INTERACTIONS & ELEVATIONS
+       ========================================================================= */
+    .action-btn:active, .nav-dropdown-btn:active, .engine-toggle-btn:active, .copilot-actions button:active {
+      transform: scale(0.98);
+    }
+    .panel-card, .doc-card, .metric-cell {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease;
+    }
+    .doc-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      border-color: var(--border-light);
+    }
+    .panel-card:hover {
+      border-color: var(--border-light);
+    }
+
+    /* Taste-Skill Signature Footer Block */
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 48px 24px 36px 24px;
+      margin-top: 48px;
+    }
+    .footer-container {
+      max-width: 1540px;
+      margin: 0 auto;
+    }
+    .footer-section-header {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 640px) {
+      .signature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sig-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px 28px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sig-card:hover {
+      background: #ffffff;
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .sig-line-area {
+      height: 48px;
+      border-bottom: 1.5px solid #0f172a;
+      margin-bottom: 14px;
+    }
+    .sig-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .sig-meta {
+      font-size: 11.5px;
+      color: #475569;
+      line-height: 1.5;
+    }
+    .sig-meta strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+    .footer-bottom-bar {
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .footer-bottom-bar a {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-bottom-bar a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -1708,7 +1814,7 @@
           <div class="doc-card-title">4. Operating the Aspen HYSYS Simulation Engine</div>
           <p>Switching to the <strong>Aspen HYSYS</strong> engine via the top toggle button dynamically configures a high-pressure natural gas separation unit (V-201) solving the Peng-Robinson Equation of State (PR-EOS):</p>
           <ul>
-            <li><strong>Gas Wellhead Feed:</strong> Multi-component mixture containing Methane (75&ndash;85 mol%), Ethane (10 mol%), Propane (5&ndash;10 mol%), n-Butane (3&ndash;5 mol%), and n-Pentane+ (2&ndash;5 mol%).</li>
+            <li><strong>Gas Wellhead Feed:</strong> Multi-component mixture containing Methane (75-85 mol%), Ethane (10 mol%), Propane (5-10 mol%), n-Butane (3-5 mol%), and n-Pentane+ (2-5 mol%).</li>
             <li><strong>Separator Temperature (T):</strong> Adjust from -30.0 &deg;C (243.15 K) to +60.0 &deg;C (333.15 K) to observe phase transition from rich gas into two-phase liquid condensate holdup.</li>
             <li><strong>Separator Pressure (P):</strong> Range from 15.0 bar to 70.0 bar. Observe dense gas compressibility behavior and retrograde condensation where depressurization causes liquid dropout.</li>
             <li><strong>Condensate Richness (z_C3+):</strong> Scale heavy hydrocarbon content to examine Natural Gas Liquid (NGL) recovery margins.</li>
@@ -1837,7 +1943,7 @@
             </div>
           </div>
           <div class="doc-alert doc-alert-info" style="margin-top: 12px;">
-            <strong>Retrograde Condensation Physics:</strong> In high-pressure gas reservoirs near the cricondenbar (70&ndash;84 bar), isothermal depressurization causes the mixture to cross the dew-point boundary from the single-phase vapor into the two-phase region. Rather than expanding vapor, liquid condensate paradoxically drops out of the gas stream due to non-ideal dense fluid molecular interactions captured by PR-EOS.
+            <strong>Retrograde Condensation Physics:</strong> In high-pressure gas reservoirs near the cricondenbar (70-84 bar), isothermal depressurization causes the mixture to cross the dew-point boundary from the single-phase vapor into the two-phase region. Rather than expanding vapor, liquid condensate paradoxically drops out of the gas stream due to non-ideal dense fluid molecular interactions captured by PR-EOS.
           </div>
         </div>
 
@@ -1915,7 +2021,7 @@
             </div>
             <p style="margin-bottom: 10px;">
               If you write software code, tools like <strong>GitHub Copilot</strong> or <strong>Cursor</strong> watch what you type, guess what function you want next, and write it for you with one click. 
-              <strong>Our product does the exact same thing, but for heavy desktop engineering software</strong>—starting with chemical plant simulators like Aspen HYSYS and DWSIM, and eventually expanding to CAD/CAM tools like AutoCAD and SolidWorks.
+              <strong>Our product does the exact same thing, but for heavy desktop engineering software</strong>: starting with chemical plant simulators like Aspen HYSYS and DWSIM, and eventually expanding to CAD/CAM tools like AutoCAD and SolidWorks.
             </p>
             <p style="margin-bottom: 10px;">
               Currently, setting up a chemical process simulation is agonizingly manual: an engineer must click through dozens of deep legacy menus, pick from over 50 confusing thermodynamic equations, type in hundreds of temperature/pressure values by hand, and wire up complex pipelines. One wrong choice causes the mathematical solver to crash with cryptic error codes.
@@ -1944,7 +2050,7 @@
               </li>
               <li>
                 <strong>2. Real-World Physical Catastrophe vs. Harmless Code Bugs:</strong> 
-                If GitHub Copilot makes a mistake in Python code, your script throws a harmless error and you delete the line. In chemical plants, refineries, and nuclear facilities, an incorrect temperature, wrong pressure rating, or invalid activity package in the design can cause physical column flooding, equipment explosions, or millions of dollars in plant downtime. The AI cannot "hallucinate"—every single recommendation must be bounded by rigid physical conservation laws.
+                If GitHub Copilot makes a mistake in Python code, your script throws a harmless error and you delete the line. In chemical plants, refineries, and nuclear facilities, an incorrect temperature, wrong pressure rating, or invalid activity package in the design can cause physical column flooding, equipment explosions, or millions of dollars in plant downtime. The AI cannot "hallucinate": every single recommendation must be bounded by rigid physical conservation laws.
               </li>
               <li>
                 <strong>3. Proprietary Corporate Data &amp; Zero Public Datasets:</strong> 
@@ -2011,8 +2117,46 @@
 
   </main>
 
-  <!-- Footer -->
-  
+  <!-- Footer with Verified Founder Signatures -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section-header">
+        <span>3. Signatures &amp; Team Governance</span>
+        <span style="font-size: 11px; font-weight: 500; color: #64748b; text-transform: none;">50% / 50% Founder Equity &bull; Idea-Stage Incubation</span>
+      </div>
+
+      <div class="signature-grid">
+        <!-- Founder 1 -->
+        <div class="sig-card">
+          <div class="sig-line-area"></div>
+          <div class="sig-name">Ayushya Ramesh Ojha</div>
+          <div class="sig-meta">
+            <div><strong>Co-Founder</strong></div>
+            <div>Current Student, BITS Pilani &bull; Indian Citizen</div>
+          </div>
+        </div>
+
+        <!-- Founder 2 -->
+        <div class="sig-card">
+          <div class="sig-line-area"></div>
+          <div class="sig-name">Aryan Jain</div>
+          <div class="sig-meta">
+            <div><strong>Co-Founder</strong></div>
+            <div>Current Student, BITS Pilani &bull; Indian Citizen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          Optimaa &bull; Chemical AI Autonomous Project &bull; Submitted for PIEDS First Principles Fund Application
+        </div>
+        <div>
+          Website: <a href="https://ayushya16.github.io/optimaa/" target="_blank" rel="noopener noreferrer">https://ayushya16.github.io/optimaa/</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <!-- Real-Time Thermodynamic Simulation JavaScript Engine -->
   <script>
