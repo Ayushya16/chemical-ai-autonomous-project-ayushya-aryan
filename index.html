@@ -9,55 +9,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* =========================================================================
-       ELITE DESIGN SYSTEM: INDUSTRIAL OBSIDIAN DARK MODE
-       Inspired by Linear, Vercel, Stripe & Bloomberg Terminal
+       CLEAN LIGHT ENGINEERING DESIGN SYSTEM
+       Inspired by Linear, Vercel, Stripe & Modern Technical Documentation
        ========================================================================= */
 
     :root {
-      /* Layered Obsidian & Slate Surfaces */
-      --bg-base: #090a0f;
-      --bg-surface: #12141c;
-      --bg-card: #151824;
-      --bg-panel: #181c28;
-      --bg-hover: #1c2130;
-      --bg-active: #22283a;
-      --bg-subtle: rgba(255, 255, 255, 0.02);
+      /* Layered Clean Light Surfaces */
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-panel: #f1f5f9;
+      --bg-hover: #f8fafc;
+      --bg-active: #e2e8f0;
+      --bg-subtle: #f8fafc;
       
-      /* High-Precision Translucent Borders */
-      --border-color: rgba(255, 255, 255, 0.08);
-      --border-light: rgba(255, 255, 255, 0.14);
-      --border-subtle: rgba(255, 255, 255, 0.04);
-      --border-focus: rgba(0, 242, 254, 0.5);
-      --border-hover: rgba(0, 242, 254, 0.35);
+      /* High-Precision Hairline Borders */
+      --border-color: #e2e8f0;
+      --border-light: #cbd5e1;
+      --border-subtle: #f1f5f9;
+      --border-focus: #0284c7;
+      --border-hover: #94a3b8;
       
       /* Typography & Text Hierarchy */
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --text-main: #0f172a;
+      --text-muted: #475569;
       --text-dim: #64748b;
-      --text-bright: #ffffff;
+      --text-bright: #0f172a;
       
       /* High-Precision Technical Accents */
-      --accent-cyan: #00f2fe;
-      --accent-blue: #38bdf8;
-      --accent-teal: #10b981;
-      --accent-emerald: #10b981;
-      --accent-amber: #f59e0b;
-      --accent-rose: #f43f5e;
-      --accent-indigo: #818cf8;
-      --accent-purple: #c084fc;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-teal: #059669;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --accent-rose: #e11d48;
+      --accent-indigo: #4f46e5;
+      --accent-purple: #7c3aed;
       
       /* Process Fluid & Piping Colors */
-      --pipe-feed: #38bdf8;
-      --pipe-vap: #00f2fe;
-      --pipe-liq: #10b981;
-      --vessel-metal: #181c28;
+      --pipe-feed: #d97706;
+      --pipe-vap: #0284c7;
+      --pipe-liq: #059669;
+      --vessel-metal: #e2e8f0;
       
       /* Elevation & Shadows */
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-      --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-      --shadow-lg: 0 12px 36px -4px rgba(0, 0, 0, 0.7);
-      --shadow-cyan-glow: 0 0 20px rgba(0, 242, 254, 0.25);
-      --shadow-emerald-glow: 0 0 20px rgba(16, 185, 129, 0.25);
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.03);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
+      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.06), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+      --shadow-cyan-glow: 0 0 0 1px rgba(2, 132, 199, 0.2);
+      --shadow-emerald-glow: 0 0 0 1px rgba(5, 150, 105, 0.2);
     }
 
     * {
@@ -78,13 +78,13 @@
     }
 
     ::selection {
-      background: rgba(0, 242, 254, 0.25);
-      color: #ffffff;
+      background: rgba(2, 132, 199, 0.2);
+      color: #0f172a;
     }
 
     /* Top Navigation Bar */
     .top-navbar {
-      background: rgba(9, 10, 15, 0.85);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
@@ -108,20 +108,19 @@
       gap: 14px;
     }
     .brand-logo-badge {
-      background: linear-gradient(135deg, #0284c7 0%, #00f2fe 100%);
-      color: #050811;
-      font-weight: 800;
-      font-size: 11px;
-      padding: 5px 10px;
+      background: #0f172a;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 10.5px;
+      padding: 4px 9px;
       border-radius: 6px;
-      letter-spacing: 0.08em;
-      box-shadow: 0 0 16px rgba(0, 242, 254, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      letter-spacing: 0.06em;
+      border: 1px solid #0f172a;
     }
     .brand-title {
       font-size: 14px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       letter-spacing: -0.015em;
     }
     .brand-subtitle {
@@ -132,37 +131,105 @@
       gap: 8px;
       margin-top: 2px;
     }
-    .nav-tabs {
+
+    /* Sections Dropdown Container */
+    .nav-actions {
       display: flex;
-      gap: 5px;
-      background: rgba(18, 20, 28, 0.75);
-      backdrop-filter: blur(8px);
-      padding: 4px;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
+      align-items: center;
+      gap: 12px;
+      position: relative;
     }
-    .nav-tab-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--text-muted);
+    .nav-dropdown-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
       font-size: 12px;
       font-weight: 600;
-      padding: 7px 16px;
-      border-radius: 7px;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      white-space: nowrap;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
     }
-    .nav-tab-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.08);
+    .nav-dropdown-btn:hover {
+      background: #f8fafc;
+      border-color: var(--border-light);
     }
-    .nav-tab-btn.active {
-      color: #ffffff;
-      background: linear-gradient(135deg, rgba(2, 132, 199, 0.95) 0%, rgba(0, 242, 254, 0.85) 100%);
-      border-color: rgba(0, 242, 254, 0.5);
-      box-shadow: 0 2px 14px rgba(0, 242, 254, 0.35);
+    .nav-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      width: 290px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+      padding: 6px;
+      z-index: 150;
+      display: none;
+    }
+    .nav-dropdown-menu.open {
+      display: block;
+      animation: fadeInDown 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav-dropdown-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .nav-dropdown-item:hover {
+      background: #f1f5f9;
+    }
+    .nav-dropdown-item.active {
+      background: #f0fdf4;
+    }
+    .nav-dropdown-item .item-title {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .nav-dropdown-item.active .item-title {
+      color: #059669;
+    }
+    .nav-dropdown-item .item-desc {
+      display: block;
+      font-size: 10.5px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .active-section-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: #059669;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: none;
+    }
+    @media (min-width: 768px) {
+      .active-section-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
     }
 
     /* Main Container */
@@ -187,16 +254,16 @@
 
     /* Simulator Engine Switcher Bar */
     .engine-switcher-container {
-      background: #12141c;
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 12px 18px;
       margin-bottom: 18px;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-sm);
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .engine-switcher-container:hover {
-      border-color: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-light);
     }
     .engine-switcher-inner {
       display: flex;
@@ -215,7 +282,7 @@
     }
     .engine-toggle-group {
       display: flex;
-      background: #090a0f;
+      background: var(--bg-panel);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 4px;
@@ -235,15 +302,15 @@
       text-align: left;
     }
     .engine-toggle-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.08);
     }
     .engine-toggle-btn.active {
-      background: #151824;
-      border-color: rgba(0, 242, 254, 0.45);
-      color: #ffffff;
-      box-shadow: 0 0 16px rgba(0, 242, 254, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      background: #ffffff;
+      border-color: var(--border-light);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
     }
     .engine-status-led {
       width: 8px;
@@ -253,11 +320,10 @@
       transition: box-shadow 0.3s ease;
     }
     .led-dwsim {
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
+      background: #059669;
     }
     .led-hysys {
-      background: #00f2fe;
+      background: #0284c7;
       box-shadow: 0 0 10px #00f2fe;
     }
     .engine-btn-text strong {
@@ -276,7 +342,7 @@
 
     /* Engineering Status Header Ribbon */
     .status-ribbon {
-      background: #12141c;
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 12px 18px;
@@ -286,11 +352,11 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-sm);
       transition: border-color 0.2s ease;
     }
     .status-ribbon:hover {
-      border-color: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-light);
     }
     .status-left {
       display: flex;
@@ -298,22 +364,16 @@
       gap: 12px;
     }
     .pulse-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 12px #10b981;
-      animation: pulse 1.8s infinite;
+      background: #059669;
       flex-shrink: 0;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.85); }
     }
     .status-title {
       font-size: 12.5px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       letter-spacing: -0.01em;
     }
     .status-desc {
@@ -331,10 +391,9 @@
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 6px;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      color: #10b981;
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
@@ -363,20 +422,20 @@
 
     /* Panels & Cards */
     .eng-card {
-      background: #12141c;
+      background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 20px;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-sm);
       transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
     }
     .eng-card:hover {
-      border-color: rgba(255, 255, 255, 0.12);
-      box-shadow: var(--shadow-lg);
+      border-color: var(--border-light);
+      box-shadow: var(--shadow-md);
     }
     .eng-card-header {
-      background: #151824;
+      background: var(--bg-panel);
       border-bottom: 1px solid var(--border-color);
       padding: 11px 16px;
       display: flex;
@@ -388,7 +447,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: #ffffff;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -398,17 +457,17 @@
       font-size: 10px;
       font-weight: 500;
       color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--bg-panel);
       padding: 3px 8px;
       border-radius: 5px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-color);
     }
 
     /* PFD Canvas Workspace */
     .pfd-viewport {
-      background: #090a0f;
+      background: #ffffff;
       background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+        radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
       background-size: 24px 24px;
       position: relative;
       border-bottom: 1px solid var(--border-color);
@@ -458,7 +517,7 @@
     .stream-tag-box {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9.5px;
-      fill: #ffffff;
+      fill: var(--text-main);
     }
 
     /* Key Quantitative Telemetry Grid */
@@ -475,12 +534,12 @@
       }
     }
     .metric-cell {
-      background: #12141c;
+      background: #ffffff;
       padding: 12px 16px;
       transition: background 0.2s ease;
     }
     .metric-cell:hover {
-      background: #181b25;
+      background: var(--bg-hover);
     }
     .m-label {
       font-size: 10px;
@@ -495,7 +554,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 17px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       letter-spacing: -0.02em;
     }
     .m-sub {
@@ -521,7 +580,7 @@
       overflow: hidden;
     }
     table.hmb-table th {
-      background: #151824;
+      background: var(--bg-panel);
       color: var(--text-muted);
       font-weight: 600;
       text-transform: uppercase;
@@ -552,10 +611,10 @@
       border-bottom: none;
     }
     table.hmb-table tr:nth-child(even) td {
-      background: rgba(255, 255, 255, 0.015);
+      background: #f8fafc;
     }
     table.hmb-table tr:hover td {
-      background: rgba(0, 242, 254, 0.05);
+      background: #e0f2fe;
     }
     .mono-cell {
       font-family: 'JetBrains Mono', monospace;
@@ -570,11 +629,11 @@
     #canvasVLE, #txyCanvas {
       width: 100%;
       height: 205px;
-      background: #090a0f;
+      background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 8px;
       display: block;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
     }
 
     /* Sliders & Controls */
@@ -593,7 +652,7 @@
     .slider-title {
       font-size: 11.5px;
       font-weight: 600;
-      color: #ffffff;
+      color: var(--text-main);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -603,7 +662,6 @@
       font-size: 11.5px;
       font-weight: 700;
       color: var(--accent-cyan);
-      text-shadow: 0 0 10px rgba(0, 242, 254, 0.35);
     }
     .slider-stepper-wrap {
       display: flex;
@@ -611,7 +669,7 @@
       gap: 12px;
     }
     .step-btn {
-      background: #181c28;
+      background: #f1f5f9;
       border: 1px solid var(--border-color);
       color: var(--text-main);
       width: 26px;
@@ -623,14 +681,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.15s ease;
     }
     .step-btn:hover {
-      background: var(--accent-cyan);
-      color: #050811;
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
-      transform: scale(1.05);
+      background: #e2e8f0;
+      color: var(--text-main);
+      border-color: var(--border-light);
     }
     .step-btn:active {
       transform: scale(0.95);
@@ -648,32 +704,31 @@
       width: 100%;
       height: 6px;
       cursor: pointer;
-      background: #181c28;
+      background: #e2e8f0;
       border-radius: 4px;
       border: 1px solid var(--border-color);
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     input[type=range]:hover::-webkit-slider-runnable-track {
-      border-color: rgba(255, 255, 255, 0.15);
+      border-color: var(--border-light);
     }
     input[type=range]::-webkit-slider-thumb {
       height: 18px;
       width: 18px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #0284c7 0%, #00f2fe 100%);
+      background: #0284c7;
       cursor: pointer;
       -webkit-appearance: none;
       margin-top: -6px;
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.8), 0 2px 4px rgba(0, 0, 0, 0.4);
-      border: 1.5px solid #ffffff;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+      border: 2px solid #ffffff;
+      transition: transform 0.15s ease;
     }
     input[type=range]::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-      box-shadow: 0 0 16px rgba(0, 242, 254, 1), 0 2px 6px rgba(0, 0, 0, 0.5);
+      transform: scale(1.15);
     }
     input[type=range]::-webkit-slider-thumb:active {
-      transform: scale(1.1);
+      transform: scale(1.05);
     }
 
     /* Preset Chips Container */
@@ -686,7 +741,7 @@
       border-top: 1px solid var(--border-color);
     }
     .preset-chip {
-      background: #151824;
+      background: var(--bg-panel);
       border: 1px solid var(--border-color);
       color: var(--text-muted);
       font-size: 10px;
@@ -695,18 +750,17 @@
       border-radius: 6px;
       cursor: pointer;
       text-align: center;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.15s ease;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       user-select: none;
     }
     .preset-chip:hover {
-      background: rgba(0, 242, 254, 0.12);
-      border-color: rgba(0, 242, 254, 0.5);
-      color: #ffffff;
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.25);
-      transform: translateY(-1px);
+      background: #ffffff;
+      border-color: var(--border-light);
+      color: var(--text-main);
+      box-shadow: var(--shadow-sm);
     }
     .preset-chip:active {
       transform: translateY(0);
@@ -714,31 +768,30 @@
 
     /* Automation Telemetry Terminal Box */
     .terminal-view {
-      background: #050608;
+      background: #0f172a;
       padding: 12px 16px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10.5px;
       line-height: 1.65;
-      color: #cbd5e1;
+      color: #e2e8f0;
       height: 165px;
       overflow-y: auto;
       border-top: 1px solid var(--border-color);
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.7);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
     }
-    /* Sleek Glowing Custom Scrollbar */
+    /* Sleek Custom Scrollbar */
     .terminal-view::-webkit-scrollbar {
       width: 5px;
     }
     .terminal-view::-webkit-scrollbar-track {
-      background: #090a0f;
+      background: #0f172a;
     }
     .terminal-view::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 4px;
     }
     .terminal-view::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 8px var(--accent-cyan);
+      background: rgba(255, 255, 255, 0.4);
     }
     .log-line {
       display: flex;
@@ -746,37 +799,37 @@
       margin-bottom: 2px;
     }
     .log-ts {
-      color: var(--text-dim);
+      color: #94a3b8;
       flex-shrink: 0;
     }
     .log-tag {
-      color: var(--accent-cyan);
+      color: #38bdf8;
       font-weight: 600;
       flex-shrink: 0;
     }
     .log-ok {
-      color: var(--accent-teal);
+      color: #34d399;
       font-weight: 600;
     }
     .log-warn {
-      color: var(--accent-amber);
+      color: #fbbf24;
       font-weight: 600;
     }
 
     /* AI Copilot Action Card HUD */
     .copilot-hud {
-      background: linear-gradient(135deg, rgba(21, 24, 36, 0.95) 0%, rgba(15, 18, 28, 0.98) 100%);
-      border: 1px solid rgba(0, 242, 254, 0.25);
+      background: #ffffff;
+      border: 1px solid var(--border-color);
       border-left: 4px solid var(--accent-cyan);
       border-radius: 10px;
       padding: 14px 18px;
       margin-top: 16px;
-      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 242, 254, 0.1);
-      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
     }
     .copilot-hud:hover {
-      border-color: rgba(0, 242, 254, 0.4);
-      box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 242, 254, 0.18);
+      border-color: var(--border-light);
+      box-shadow: var(--shadow-md);
     }
     .copilot-badge {
       display: inline-flex;
@@ -792,7 +845,7 @@
     .copilot-title {
       font-size: 13px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-main);
       margin-bottom: 5px;
       letter-spacing: -0.01em;
     }
@@ -819,26 +872,26 @@
       gap: 6px;
     }
     .action-btn-primary {
-      background: linear-gradient(135deg, #0284c7 0%, #00f2fe 100%);
-      color: #050811;
+      background: #0f172a;
+      color: #ffffff;
       font-weight: 700;
-      box-shadow: 0 2px 10px rgba(0, 242, 254, 0.35);
+      box-shadow: var(--shadow-sm);
     }
     .action-btn-primary:hover {
-      box-shadow: 0 0 18px rgba(0, 242, 254, 0.7);
+      background: #1e293b;
       transform: translateY(-1px);
     }
     .action-btn-primary:active {
       transform: translateY(0);
     }
     .action-btn-secondary {
-      background: #181c28;
+      background: #ffffff;
       border: 1px solid var(--border-color);
-      color: #ffffff;
+      color: var(--text-main);
     }
     .action-btn-secondary:hover {
-      background: #22283a;
-      border-color: rgba(255, 255, 255, 0.15);
+      background: #f8fafc;
+      border-color: var(--border-light);
       transform: translateY(-1px);
     }
     .action-btn-secondary:active {
@@ -849,11 +902,12 @@
     .doc-page-container {
       max-width: 1120px;
       margin: 0 auto;
-      background: #12141c;
+      background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 32px 40px;
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-sm);
+      color: var(--text-main);
     }
     .doc-header-block {
       border-bottom: 2px solid var(--accent-cyan);
@@ -870,7 +924,7 @@
     .doc-title {
       font-size: 24px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-main);
       margin: 6px 0 10px 0;
       letter-spacing: -0.02em;
     }
@@ -880,17 +934,21 @@
       line-height: 1.6;
     }
     .doc-card {
-      background: #151824;
+      background: #f8fafc;
       border: 1px solid var(--border-color);
       border-radius: 10px;
       padding: 20px 24px;
       margin-bottom: 22px;
       box-shadow: var(--shadow-sm);
       transition: border-color 0.2s ease, background 0.2s ease;
+      color: var(--text-main);
     }
     .doc-card:hover {
-      background: #181b25;
-      border-color: rgba(255, 255, 255, 0.12);
+      background: #ffffff;
+      border-color: var(--border-light);
+    }
+    .doc-card h4 {
+      color: var(--text-main);
     }
     .doc-card-accent {
       border-left: 4px solid var(--accent-cyan);
@@ -1124,13 +1182,35 @@
           </div>
         </div>
       </div>
-      <nav class="nav-tabs">
-        <button class="nav-tab-btn active" onclick="switchTab('tab-sim', this)">Interactive Simulator</button>
-        <button class="nav-tab-btn" onclick="switchTab('tab-how', this)">User Guide</button>
-        <button class="nav-tab-btn" onclick="switchTab('tab-explainer', this)">Technical Explainer</button>
-        <button class="nav-tab-btn" onclick="switchTab('tab-limitations', this)">Full-Scale Limitations</button>
-        <button class="nav-tab-btn" onclick="switchTab('tab-assistive-tech', this)">Assistive AI Roadmap</button>
-      </nav>
+      <div class="nav-actions">
+        <span class="active-section-pill" id="activeSectionPill">ACTIVE &bull; SIMULATOR</span>
+        <button class="nav-dropdown-btn" id="navDropdownToggle" onclick="toggleNavDropdown()">
+          <span>Sections</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown-menu" id="navDropdownMenu">
+          <button class="nav-dropdown-item active" onclick="selectTabFromDropdown('tab-sim', 'ACTIVE • SIMULATOR')">
+            <span class="item-title">Interactive Simulator</span>
+            <span class="item-desc">DWSIM &amp; HYSYS Flash Separation CAD</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="selectTabFromDropdown('tab-how', 'ACTIVE • USER GUIDE')">
+            <span class="item-title">User Guide</span>
+            <span class="item-desc">Operating manual &amp; step-by-step instructions</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="selectTabFromDropdown('tab-explainer', 'ACTIVE • EXPLAINER')">
+            <span class="item-title">Technical Explainer</span>
+            <span class="item-desc">Thermodynamics, Wilson VLE &amp; PR-EOS solver math</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="selectTabFromDropdown('tab-limitations', 'ACTIVE • LIMITATIONS')">
+            <span class="item-title">Full-Scale Limitations</span>
+            <span class="item-desc">Industrial scale constraints &amp; boundaries</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="selectTabFromDropdown('tab-assistive-tech', 'ACTIVE • ROADMAP')">
+            <span class="item-title">Assistive AI Roadmap</span>
+            <span class="item-desc">Autonomous process engineering trajectory</span>
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -1204,21 +1284,21 @@
                 <defs>
                   <!-- Steel Vessel Gradients -->
                   <linearGradient id="vesselBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#1e293b" />
-                    <stop offset="25%" stop-color="#334155" />
-                    <stop offset="50%" stop-color="#475569" />
-                    <stop offset="75%" stop-color="#334155" />
-                    <stop offset="100%" stop-color="#1e293b" />
+                    <stop offset="0%" stop-color="#f1f5f9" />
+                    <stop offset="25%" stop-color="#ffffff" />
+                    <stop offset="50%" stop-color="#f8fafc" />
+                    <stop offset="75%" stop-color="#ffffff" />
+                    <stop offset="100%" stop-color="#f1f5f9" />
                   </linearGradient>
                   
                   <linearGradient id="liquidGradReal" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="rgba(16, 185, 129, 0.45)" />
-                    <stop offset="100%" stop-color="rgba(5, 150, 105, 0.95)" />
+                    <stop offset="0%" stop-color="rgba(16, 185, 129, 0.35)" />
+                    <stop offset="100%" stop-color="rgba(5, 150, 105, 0.85)" />
                   </linearGradient>
 
                   <linearGradient id="vaporGradReal" x1="0%" y1="100%" x2="0%" y2="0%">
-                    <stop offset="0%" stop-color="rgba(56, 189, 248, 0.05)" />
-                    <stop offset="100%" stop-color="rgba(56, 189, 248, 0.35)" />
+                    <stop offset="0%" stop-color="rgba(2, 132, 199, 0.05)" />
+                    <stop offset="100%" stop-color="rgba(2, 132, 199, 0.25)" />
                   </linearGradient>
 
                   <!-- Demister Mesh Pattern -->
@@ -1229,19 +1309,19 @@
                 </defs>
 
                 <!-- Ground Foundation & Vessel Skirt Support -->
-                <rect x="330" y="270" width="100" height="35" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
-                <line x1="310" y1="305" x2="450" y2="305" stroke="#475569" stroke-width="4" />
+                <rect x="330" y="270" width="100" height="35" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" />
+                <line x1="310" y1="305" x2="450" y2="305" stroke="#94a3b8" stroke-width="4" />
                 <!-- Anchor Bolts -->
-                <circle cx="338" cy="300" r="2.5" fill="#94a3b8" />
-                <circle cx="422" cy="300" r="2.5" fill="#94a3b8" />
+                <circle cx="338" cy="300" r="2.5" fill="#64748b" />
+                <circle cx="422" cy="300" r="2.5" fill="#64748b" />
 
                 <!-- Vessel Outline: 2:1 Ellipsoidal Heads + Cylindrical Shell -->
                 <!-- Top Head -->
-                <path d="M 330 90 C 330 45, 430 45, 430 90" fill="url(#vesselBodyGrad)" stroke="#64748b" stroke-width="2" />
+                <path d="M 330 90 C 330 45, 430 45, 430 90" fill="url(#vesselBodyGrad)" stroke="#475569" stroke-width="2" />
                 <!-- Cylindrical Shell -->
-                <rect x="330" y="90" width="100" height="180" fill="url(#vesselBodyGrad)" stroke="#64748b" stroke-width="2" />
+                <rect x="330" y="90" width="100" height="180" fill="url(#vesselBodyGrad)" stroke="#475569" stroke-width="2" />
                 <!-- Bottom Head -->
-                <path d="M 330 270 C 330 310, 430 310, 430 270" fill="url(#vesselBodyGrad)" stroke="#64748b" stroke-width="2" />
+                <path d="M 330 270 C 330 310, 430 310, 430 270" fill="url(#vesselBodyGrad)" stroke="#475569" stroke-width="2" />
 
                 <!-- Dynamic Vapor Headspace & Liquid Holdup -->
                 <g clip-path="url(#vesselClip)">
@@ -1273,7 +1353,7 @@
                 <!-- Pressure Relief Valve (PSV-101) on Top Head Nozzle -->
                 <path d="M 380 48 L 380 25 L 368 18 L 368 32 L 380 25" fill="#f43f5e" stroke="#f43f5e" stroke-width="1.2" />
                 <line x1="368" y1="25" x2="350" y2="25" stroke="#f43f5e" stroke-width="1.5" />
-                <circle cx="340" cy="25" r="9" fill="#12141c" stroke="#f43f5e" stroke-width="1.2" />
+                <circle cx="340" cy="25" r="9" fill="#ffffff" stroke="#f43f5e" stroke-width="1.2" />
                 <text x="340" y="28" fill="#f43f5e" font-size="6.5" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">PSV</text>
 
                 <!-- Level Controller Valve (LCV-101) on Bottoms Line -->
@@ -1283,7 +1363,7 @@
                   <polygon points="14,0 28,-7 28,7" fill="#10b981" />
                   <!-- Actuator Stem & Diaphragm -->
                   <line x1="14" y1="0" x2="14" y2="-12" stroke="#10b981" stroke-width="1.5" />
-                  <path d="M 6 -12 C 6 -18, 22 -18, 22 -12 Z" fill="#12141c" stroke="#10b981" stroke-width="1.2" />
+                  <path d="M 6 -12 C 6 -18, 22 -18, 22 -12 Z" fill="#ffffff" stroke="#10b981" stroke-width="1.2" />
                   <text x="14" y="-22" fill="#10b981" font-size="7" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">LCV-101</text>
                 </g>
 
@@ -1302,35 +1382,35 @@
 
                 <!-- P&ID INSTRUMENTATION BUBBLES -->
                 <!-- Feed Temp Transmitter TIT-101 -->
-                <circle cx="160" cy="135" r="14" fill="#12141c" stroke="#38bdf8" stroke-width="1.5" />
-                <line x1="160" y1="149" x2="160" y2="180" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="3 3" />
-                <text x="160" y="138" fill="#38bdf8" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">TIT-101</text>
+                <circle cx="160" cy="135" r="14" fill="#ffffff" stroke="#0284c7" stroke-width="1.5" />
+                <line x1="160" y1="149" x2="160" y2="180" stroke="#0284c7" stroke-width="1.2" stroke-dasharray="3 3" />
+                <text x="160" y="138" fill="#0284c7" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">TIT-101</text>
 
                 <!-- Overhead Pressure Transmitter PIT-101 -->
-                <circle cx="560" cy="55" r="14" fill="#12141c" stroke="#60a5fa" stroke-width="1.5" />
-                <line x1="560" y1="41" x2="560" y2="16" stroke="#60a5fa" stroke-width="1.2" stroke-dasharray="3 3" />
-                <text x="560" y="58" fill="#60a5fa" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">PIT-101</text>
+                <circle cx="560" cy="55" r="14" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" />
+                <line x1="560" y1="41" x2="560" y2="16" stroke="#2563eb" stroke-width="1.2" stroke-dasharray="3 3" />
+                <text x="560" y="58" fill="#2563eb" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">PIT-101</text>
 
                 <!-- Level Indicator Controller LIC-101 -->
-                <circle cx="440" cy="230" r="14" fill="#12141c" stroke="#34d399" stroke-width="1.5" />
-                <line x1="429" y1="230" x2="440" y2="230" stroke="#34d399" stroke-width="1.2" />
-                <line x1="454" y1="230" x2="494" y2="230" stroke="#34d399" stroke-width="1.2" stroke-dasharray="3 3" />
-                <line x1="494" y1="230" x2="494" y2="295" stroke="#34d399" stroke-width="1.2" stroke-dasharray="3 3" />
-                <text x="440" y="233" fill="#34d399" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">LIC-101</text>
+                <circle cx="440" cy="230" r="14" fill="#ffffff" stroke="#059669" stroke-width="1.5" />
+                <line x1="429" y1="230" x2="440" y2="230" stroke="#059669" stroke-width="1.2" />
+                <line x1="454" y1="230" x2="494" y2="230" stroke="#059669" stroke-width="1.2" stroke-dasharray="3 3" />
+                <line x1="494" y1="230" x2="494" y2="295" stroke="#059669" stroke-width="1.2" stroke-dasharray="3 3" />
+                <text x="440" y="233" fill="#059669" font-size="8" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">LIC-101</text>
 
                 <!-- VESSEL TAG BADGE -->
                 <g transform="translate(345, 142)">
-                  <rect x="0" y="0" width="70" height="34" rx="4" fill="#090a0f" stroke="#475569" stroke-width="1" />
-                  <text x="35" y="14" fill="#ffffff" font-size="9" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="800">V-101</text>
+                  <rect x="0" y="0" width="70" height="34" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" />
+                  <text x="35" y="14" fill="#0f172a" font-size="9" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="800">V-101</text>
                   <text id="pfdVesselPsi" x="35" y="26" fill="var(--accent-blue)" font-size="8.5" font-family="'JetBrains Mono', monospace" text-anchor="middle" font-weight="700">&psi; = 0.297</text>
                 </g>
 
                 <!-- LIVE STREAM DATA BOXES (PFD INSPECTION TAGS) -->
                 <!-- 1. FEED TAG S-101 -->
                 <g transform="translate(40, 202)">
-                  <rect x="0" y="0" width="165" height="58" rx="5" fill="rgba(15, 23, 42, 0.92)" stroke="var(--border-light)" stroke-width="1" />
-                  <rect x="0" y="0" width="165" height="16" rx="5 5 0 0" fill="#1e293b" />
-                  <text x="8" y="12" fill="var(--accent-blue)" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700"><span id="tagFeed">STREAM S-101 [FEED]</span></text>
+                  <rect x="0" y="0" width="165" height="58" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+                  <rect x="0" y="0" width="165" height="16" rx="5 5 0 0" fill="#f8fafc" />
+                  <text x="8" y="12" fill="var(--accent-amber)" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700"><span id="tagFeed">STREAM S-101 [FEED]</span></text>
                   <text id="pfdFeedTP" x="8" y="30" class="stream-tag-box">360.0 K &bull; 1.013 bar</text>
                   <text id="pfdFeedFlow" x="8" y="42" class="stream-tag-box">3600 kg/h &bull; 31.21 mol/s</text>
                   <text id="pfdFeedComp" x="8" y="53" class="stream-tag-box">z_EtOH: 0.5000 &bull; z_H2O: 0.5000</text>
@@ -1338,9 +1418,9 @@
 
                 <!-- 2. VAPOR TAG S-102 -->
                 <g transform="translate(540, 40)">
-                  <rect x="0" y="0" width="170" height="58" rx="5" fill="rgba(15, 23, 42, 0.92)" stroke="var(--border-light)" stroke-width="1" />
-                  <rect x="0" y="0" width="170" height="16" rx="5 5 0 0" fill="#1e293b" />
-                  <text x="8" y="12" fill="var(--accent-blue)" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700"><span id="tagVap">STREAM S-102 [VAPOR]</span></text>
+                  <rect x="0" y="0" width="170" height="58" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+                  <rect x="0" y="0" width="170" height="16" rx="5 5 0 0" fill="#f8fafc" />
+                  <text x="8" y="12" fill="var(--accent-cyan)" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700"><span id="tagVap">STREAM S-102 [VAPOR]</span></text>
                   <text id="pfdVapState" x="8" y="30" class="stream-tag-box">V/F: 0.2969 (29.7%)</text>
                   <text id="pfdVapFlow" x="8" y="42" class="stream-tag-box">1182.5 kg/h &bull; 9.27 mol/s</text>
                   <text id="pfdVapComp" x="8" y="53" class="stream-tag-box">y_EtOH: 0.6214 &bull; y_H2O: 0.3786</text>
@@ -1348,8 +1428,8 @@
 
                 <!-- 3. LIQUID TAG S-103 -->
                 <g transform="translate(540, 240)">
-                  <rect x="0" y="0" width="170" height="58" rx="5" fill="rgba(15, 23, 42, 0.92)" stroke="var(--border-light)" stroke-width="1" />
-                  <rect x="0" y="0" width="170" height="16" rx="5 5 0 0" fill="#1e293b" />
+                  <rect x="0" y="0" width="170" height="58" rx="5" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+                  <rect x="0" y="0" width="170" height="16" rx="5 5 0 0" fill="#f8fafc" />
                   <text x="8" y="12" fill="var(--accent-teal)" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700"><span id="tagLiq">STREAM S-103 [LIQUID]</span></text>
                   <text id="pfdLiqState" x="8" y="30" class="stream-tag-box">L/F: 0.7031 (70.3%)</text>
                   <text id="pfdLiqFlow" x="8" y="42" class="stream-tag-box">2417.5 kg/h &bull; 21.94 mol/s</text>
@@ -2796,11 +2876,11 @@
       const ctx = cv.getContext("2d");
       const W = cv.width, H = cv.height;
 
-      ctx.fillStyle = "#090a0f";
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, W, H);
 
       // Grid
-      ctx.strokeStyle = "rgba(255,255,255,0.06)";
+      ctx.strokeStyle = "#f1f5f9";
       ctx.lineWidth = 1;
       for (let x = 60; x <= W - 40; x += 60) {
         ctx.beginPath(); ctx.moveTo(x, 30); ctx.lineTo(x, H - 40); ctx.stroke();
@@ -2810,13 +2890,13 @@
       }
 
       // Axes
-      ctx.strokeStyle = "#475569";
+      ctx.strokeStyle = "#94a3b8";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(60, 30); ctx.lineTo(60, H - 40); ctx.lineTo(W - 40, H - 40);
       ctx.stroke();
 
-      ctx.fillStyle = "#94a3b8";
+      ctx.fillStyle = "#475569";
       ctx.font = "11px Inter";
       ctx.fillText("Ethanol Liquid & Vapor Mole Fraction (x, y)", W / 2 - 100, H - 12);
       ctx.save();
@@ -2834,7 +2914,7 @@
       const toY = temp => (H - 40) - ((temp - 340.0) / 45.0) * (H - 70);
 
       // Liquid Bubble Line (Cyan)
-      ctx.strokeStyle = "#06b6d4";
+      ctx.strokeStyle = "#0284c7";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       for (let i = 0; i <= 50; i++) {
@@ -2851,7 +2931,7 @@
       ctx.stroke();
 
       // Vapor Dew Line (Amber)
-      ctx.strokeStyle = "#f59e0b";
+      ctx.strokeStyle = "#d97706";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       for (let i = 0; i <= 50; i++) {
@@ -2870,7 +2950,7 @@
       // Tie-line at current operating T
       const opY = toY(res.T_K);
       if (res.psi > 0.0 && res.psi < 1.0 && opY >= 30 && opY <= H - 40) {
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+        ctx.strokeStyle = "#0f172a";
         ctx.lineWidth = 1.5;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
@@ -2880,29 +2960,29 @@
         ctx.setLineDash([]);
 
         // Liquid Node (Green)
-        ctx.fillStyle = "#10b981";
+        ctx.fillStyle = "#059669";
         ctx.beginPath(); ctx.arc(toX(res.x_etoh), opY, 5, 0, 2 * Math.PI); ctx.fill();
 
         // Vapor Node (Blue)
-        ctx.fillStyle = "#38bdf8";
+        ctx.fillStyle = "#0284c7";
         ctx.beginPath(); ctx.arc(toX(res.y_etoh), opY, 5, 0, 2 * Math.PI); ctx.fill();
       }
 
       // Operating Point Marker (Feed z, T)
       const feedX = toX(res.z_etoh);
-      ctx.fillStyle = "#f43f5e";
+      ctx.fillStyle = "#e11d48";
       ctx.beginPath(); ctx.arc(feedX, opY, 7, 0, 2 * Math.PI); ctx.fill();
       ctx.strokeStyle = "#ffffff";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Legend
-      ctx.fillStyle = "#06b6d4"; ctx.fillRect(W - 190, 40, 12, 4);
-      ctx.fillStyle = "#e2e8f0"; ctx.fillText("Bubble Line (Liq)", W - 170, 44);
-      ctx.fillStyle = "#f59e0b"; ctx.fillRect(W - 190, 56, 12, 4);
-      ctx.fillStyle = "#e2e8f0"; ctx.fillText("Dew Line (Vap)", W - 170, 60);
-      ctx.fillStyle = "#f43f5e"; ctx.beginPath(); ctx.arc(W - 184, 72, 4, 0, 2 * Math.PI); ctx.fill();
-      ctx.fillStyle = "#e2e8f0"; ctx.fillText("Feed State (z, T)", W - 170, 76);
+      ctx.fillStyle = "#0284c7"; ctx.fillRect(W - 190, 40, 12, 4);
+      ctx.fillStyle = "#334155"; ctx.fillText("Bubble Line (Liq)", W - 170, 44);
+      ctx.fillStyle = "#d97706"; ctx.fillRect(W - 190, 56, 12, 4);
+      ctx.fillStyle = "#334155"; ctx.fillText("Dew Line (Vap)", W - 170, 60);
+      ctx.fillStyle = "#e11d48"; ctx.beginPath(); ctx.arc(W - 184, 72, 4, 0, 2 * Math.PI); ctx.fill();
+      ctx.fillStyle = "#334155"; ctx.fillText("Feed State (z, T)", W - 170, 76);
     }
 
     function drawHYSYSCanvas(res) {
@@ -2911,11 +2991,11 @@
       const ctx = cv.getContext("2d");
       const W = cv.width, H = cv.height;
 
-      ctx.fillStyle = "#090a0f";
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, W, H);
 
       // Grid
-      ctx.strokeStyle = "rgba(255,255,255,0.06)";
+      ctx.strokeStyle = "#f1f5f9";
       ctx.lineWidth = 1;
       for (let x = 60; x <= W - 40; x += 60) {
         ctx.beginPath(); ctx.moveTo(x, 30); ctx.lineTo(x, H - 40); ctx.stroke();
@@ -2925,13 +3005,13 @@
       }
 
       // Axes
-      ctx.strokeStyle = "#475569";
+      ctx.strokeStyle = "#94a3b8";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(60, 30); ctx.lineTo(60, H - 40); ctx.lineTo(W - 40, H - 40);
       ctx.stroke();
 
-      ctx.fillStyle = "#94a3b8";
+      ctx.fillStyle = "#475569";
       ctx.font = "11px Inter";
       ctx.fillText("Temperature T (°C)", W / 2 - 50, H - 12);
       ctx.save();
@@ -2947,11 +3027,9 @@
 
       // Critical Point: Tc = -12 °C, Pc = 78 bar
       const Tc = -12.0, Pc = 78.0;
-      // Cricondenbar: Pmax = 84 bar at T = -5 °C
-      // Cricondentherm: Tmax = 48 °C at P = 42 bar
 
       // 1. Bubble Point Curve (Liquid boundary, Cyan)
-      ctx.strokeStyle = "#06b6d4";
+      ctx.strokeStyle = "#0284c7";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.moveTo(toX(-75), toY(2));
@@ -2959,7 +3037,7 @@
       ctx.stroke();
 
       // 2. Dew Point Curve (Vapor boundary, Amber)
-      ctx.strokeStyle = "#f59e0b";
+      ctx.strokeStyle = "#d97706";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.moveTo(toX(Tc), toY(Pc));
@@ -2967,7 +3045,7 @@
       ctx.stroke();
 
       // Shaded Retrograde Condensation Zone
-      ctx.fillStyle = "rgba(245, 158, 11, 0.12)";
+      ctx.fillStyle = "rgba(217, 119, 6, 0.08)";
       ctx.beginPath();
       ctx.moveTo(toX(Tc), toY(Pc));
       ctx.bezierCurveTo(toX(10), toY(86), toX(52), toY(45), toX(35), toY(5));
@@ -2976,9 +3054,9 @@
       ctx.fill();
 
       // Critical Point Marker
-      ctx.fillStyle = "#818cf8";
+      ctx.fillStyle = "#4f46e5";
       ctx.beginPath(); ctx.arc(toX(Tc), toY(Pc), 6, 0, 2 * Math.PI); ctx.fill();
-      ctx.fillStyle = "#c7d2fe";
+      ctx.fillStyle = "#475569";
       ctx.font = "10px Inter";
       ctx.fillText("Critical Point (-12°C, 78 bar)", toX(Tc) - 60, toY(Pc) - 10);
 
@@ -2987,25 +3065,51 @@
       const opX = toX(opT_C);
       const opY = toY(res.P_bar);
 
-      ctx.fillStyle = "#f43f5e";
+      ctx.fillStyle = "#e11d48";
       ctx.beginPath(); ctx.arc(opX, opY, 8, 0, 2 * Math.PI); ctx.fill();
       ctx.strokeStyle = "#ffffff";
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Label at operating marker
-      ctx.fillStyle = "#f8fafc";
+      ctx.fillStyle = "#0f172a";
       ctx.font = "11px Inter";
       ctx.fillText(`V-201 Operating: ${opT_C.toFixed(1)}°C, ${res.P_bar.toFixed(1)} bar`, opX + 12, opY - 6);
 
       // Legend
-      ctx.fillStyle = "#06b6d4"; ctx.fillRect(W - 200, 40, 12, 4);
-      ctx.fillStyle = "#e2e8f0"; ctx.fillText("Bubble Point Curve", W - 180, 44);
-      ctx.fillStyle = "#f59e0b"; ctx.fillRect(W - 200, 56, 12, 4);
-      ctx.fillStyle = "#e2e8f0"; ctx.fillText("Dew Point Curve", W - 180, 60);
-      ctx.fillStyle = "rgba(245, 158, 11, 0.4)"; ctx.fillRect(W - 200, 72, 12, 8);
-      ctx.fillStyle = "#e2e8f0"; ctx.fillText("2-Phase Retrograde Zone", W - 180, 78);
+      ctx.fillStyle = "#0284c7"; ctx.fillRect(W - 200, 40, 12, 4);
+      ctx.fillStyle = "#334155"; ctx.fillText("Bubble Point Curve", W - 180, 44);
+      ctx.fillStyle = "#d97706"; ctx.fillRect(W - 200, 56, 12, 4);
+      ctx.fillStyle = "#334155"; ctx.fillText("Dew Point Curve", W - 180, 60);
+      ctx.fillStyle = "rgba(217, 119, 6, 0.25)"; ctx.fillRect(W - 200, 72, 12, 8);
+      ctx.fillStyle = "#334155"; ctx.fillText("2-Phase Retrograde Zone", W - 180, 78);
     }
+
+    // Dropdown Navigation Helpers
+    function toggleNavDropdown() {
+      const menu = document.getElementById('navDropdownMenu');
+      if (menu) menu.classList.toggle('open');
+    }
+    function selectTabFromDropdown(tabId, label) {
+      switchTab(tabId);
+      const pill = document.getElementById('activeSectionPill');
+      if (pill) pill.textContent = label;
+      const menu = document.getElementById('navDropdownMenu');
+      if (menu) menu.classList.remove('open');
+      document.querySelectorAll('.nav-dropdown-item').forEach(el => el.classList.remove('active'));
+      const btn = document.querySelector(`.nav-dropdown-item[onclick*="${tabId}"]`);
+      if (btn) btn.classList.add('active');
+    }
+    document.addEventListener('click', function(e) {
+      const toggle = document.getElementById('navDropdownToggle');
+      const menu = document.getElementById('navDropdownMenu');
+      if (toggle && menu && !toggle.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('open');
+      }
+    });
+
+    window.toggleNavDropdown = toggleNavDropdown;
+    window.selectTabFromDropdown = selectTabFromDropdown;
 
     // Explicitly bind all interactive controllers to window scope
     window.setEngine = setEngine;
